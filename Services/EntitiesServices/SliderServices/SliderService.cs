@@ -1,0 +1,98 @@
+﻿using AutoMapper;
+using Domain.Entities;
+using Domain.EntitiesDto;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Services.EntitiesServices.SliderServices
+{
+    public  class SliderService:ISliderService
+    {
+        private readonly DataContext _context;
+        private readonly IMapper _mapper;
+        private readonly IHostingEnvironment _webHostEnvironment;
+        //private readonly IWebHostEnvironment hostEnvironment;
+        
+        public SliderService(DataContext context,IMapper mapper, IHostingEnvironment  webHostEnvironment)
+        {
+            _context = context;
+            _mapper = mapper;
+            _webHostEnvironment = webHostEnvironment;
+        }
+
+        public async Task<int> Delete(SliderDto slider)
+        {
+            var s = await _context.Sliders.FindAsync(slider.Id);
+            if (s == null) return 0;
+            _context.Sliders.Remove(s);
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> Delete(int Id)
+        {
+            var s = await _context.Sliders.FindAsync(Id);
+            if (s == null) return 0;
+            _context.Sliders.Remove(s);
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<SliderDto> GetSliderById(int Id)
+        {
+            var slider = await (from s in _context.Sliders
+                                select new SliderDto
+                                {
+                                    Id=s.Id,
+                                    Title=s.Title,
+                                   // Image=s.Image,
+                                    Enabled=s.Enabled
+
+                                }).FirstOrDefaultAsync();
+            if (slider == null) return new SliderDto();
+             return slider;
+        }
+
+        public async Task<List<Slider>> GetSliders()
+        {
+            return await _context.Sliders.ToListAsync();
+        }
+
+        public async Task<int> Insert(SliderDto slider)
+        {
+            var fileName = Guid.NewGuid() + "_" + Path.GetFileName(slider.Image.FileName);
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await slider.Image.CopyToAsync(stream);
+            }
+            var mapped = _mapper.Map<Slider>(slider);
+            mapped.Image = fileName;
+            await _context.Sliders.AddAsync(mapped);
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> Update(SliderDto slider)
+        {
+            var fileName = Guid.NewGuid() + "_" + Path.GetFileName(slider.Image.FileName);
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await slider.Image.CopyToAsync(stream);
+            }
+            var s = await _context.Sliders.FindAsync(slider.Id);
+            if (s == null) return 0;
+            s.Title = slider.Title;
+            s.Image = fileName;
+            s.Enabled = slider.Enabled;
+            return await _context.SaveChangesAsync();
+
+        }
+    }
+}
