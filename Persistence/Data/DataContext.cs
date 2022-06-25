@@ -15,5 +15,7 @@ namespace Persistence.Data
         public DbSet<Department> Departments { get; set; }
         public DbSet<DepartmentImage> DepartmentImages { get; set; }
         public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<News> Newses { get; set; }
     }
 }
