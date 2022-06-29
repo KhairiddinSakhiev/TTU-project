@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
+using Services.EntitiesServices.Position;
 
 var builder = WebApplication.CreateBuilder(args);
-
-string connection = builder.Configuration.GetConnectionString("ConnectionDb");
-builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connection));
-
 // Add services to the container.
+
+var connection = builder.Configuration.GetConnectionString("ConnectionDb");
+builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connection));
+builder.Services.AddScoped<PositionService>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
