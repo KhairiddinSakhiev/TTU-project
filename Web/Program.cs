@@ -1,13 +1,24 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
+using Services.EntitiesServices.DepartmentImageServices;
+using Services.EntitiesServices.DepartmentServices;
+using Services.EntitiesServices.SliderServices;
+using Services.MapperServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 string connection = builder.Configuration.GetConnectionString("ConnectionDb");
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connection));
 
+var t = builder.Environment;
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IDepartmentImageService,DepartmentImageService>();
+builder.Services.AddScoped<IDepartmentService,DepartmentService>();
+builder.Services.AddScoped<ISliderService, SliderService>();
+builder.Services.AddAutoMapper(typeof(IMapperService));
+
 
 var app = builder.Build();
 

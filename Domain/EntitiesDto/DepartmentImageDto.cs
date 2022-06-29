@@ -8,7 +8,7 @@ namespace Domain.EntitiesDto
 {
     public  class DepartmentImageDto
     {
-       
+        public int Id { get; set; }
         public string? Title { get; set; }
         public int DepartmentId { get; set; }
     }
