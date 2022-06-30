@@ -12,8 +12,8 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220629131103_AddRelationManyToManyTeacherPosition")]
-    partial class AddRelationManyToManyTeacherPosition
+    [Migration("20220630120422_AddedTeacher")]
+    partial class AddedTeacher
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
