@@ -1,43 +1,45 @@
 ﻿using Domain.EntitiesDto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Services.EntitiesServices.DepartmentServices;
+using Services.EntitiesServices.SliderServices;
 
 namespace Web.Areas.Admin.Controllers
 {
-    public class DepartmentController : BaseController
+    public class SliderController : BaseController
     {
-        private readonly IDepartmentService _departmentService;
+        private readonly ISliderService _sliderService;
 
-        public DepartmentController(IDepartmentService departmentService )
+        public SliderController(ISliderService sliderService)
         {
-            _departmentService = departmentService;
+            _sliderService = sliderService;
         }
-        // GET: DepartmentController
+        // GET: SliderController
         public ActionResult Index()
         {
-            var list =  _departmentService.GetDepartments();
+            var list = _sliderService.GetSliders();
             return View(list);
         }
 
-        // GET: DepartmentController/Create
+       
+
+        // GET: SliderController/Create
         public ActionResult Create()
         {
-            return View(new DepartmentDto());
+            return View(new SliderDto());
         }
 
-        // POST: DepartmentController/Create
+        // POST: SliderController/Create
         [HttpPost]
-        public async Task<ActionResult> Create(DepartmentDto department)
+        public async Task<ActionResult> Create(SliderDto slider)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _departmentService.Insert(department);
+                    await _sliderService.Insert(slider);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(department);
+                return View(slider);
             }
             catch(Exception ex)
             {
@@ -45,22 +47,21 @@ namespace Web.Areas.Admin.Controllers
             }
         }
 
-        // GET: DepartmentController/Edit/5
+        // GET: SliderController/Edit/5
         public async Task<ActionResult> Edit(int id)
-        {
-            var d = await _departmentService.GetDepartmentById(id);
-            return View(d);
+        { var slider = await _sliderService.GetSliderById(id);
+            return View(slider);
         }
 
-        // POST: DepartmentController/Edit/5
+        // POST: SliderController/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit(DepartmentDto dto)
+        public async Task<ActionResult> Edit(SliderDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _departmentService.Update(dto);
+                    await _sliderService.Update(dto);
                     return RedirectToAction(nameof(Index));
                 }
                 return View(dto);
@@ -71,22 +72,21 @@ namespace Web.Areas.Admin.Controllers
             }
         }
 
-        // GET: DepartmentController/Delete/5
+        // GET: SliderController/Delete/5
         public async Task<ActionResult> Delete(int id)
-        {
-            var d = await _departmentService.GetDepartmentById(id);
-            return View(d);
+        {var slider = await _sliderService.GetSliderById(id);
+            return View(slider);
         }
 
-        // POST: DepartmentController/Delete/5
+        // POST: SliderController/Delete/5
         [HttpPost]
-        public async Task<ActionResult> Delete(DepartmentDto dto)
+        public async Task<ActionResult> Delete(SliderDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _departmentService.Delete(dto);
+                    await _sliderService.Delete(dto);
                     return RedirectToAction(nameof(Index));
                 }
                 return View(dto);

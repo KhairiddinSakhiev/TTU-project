@@ -1,43 +1,44 @@
 ﻿using Domain.EntitiesDto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Services.EntitiesServices.DepartmentServices;
+using Services.EntitiesServices.DepartmentImageServices;
 
 namespace Web.Areas.Admin.Controllers
 {
-    public class DepartmentController : BaseController
+    public class DepartmentImageController : BaseController
     {
-        private readonly IDepartmentService _departmentService;
+        private readonly IDepartmentImageService _imageService;
 
-        public DepartmentController(IDepartmentService departmentService )
+        public DepartmentImageController(IDepartmentImageService imageService)
         {
-            _departmentService = departmentService;
+            _imageService = imageService;
         }
-        // GET: DepartmentController
+        // GET: DepartmentImageController
         public ActionResult Index()
         {
-            var list =  _departmentService.GetDepartments();
+            var list = _imageService.GetDepartmentImages();
             return View(list);
         }
 
-        // GET: DepartmentController/Create
+
+        // GET: DepartmentImageController/Create
         public ActionResult Create()
         {
-            return View(new DepartmentDto());
+            return View(new DepartmentImageDto());
         }
 
-        // POST: DepartmentController/Create
+        // POST: DepartmentImageController/Create
         [HttpPost]
-        public async Task<ActionResult> Create(DepartmentDto department)
+        public async Task<ActionResult> Create(DepartmentImageDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _departmentService.Insert(department);
+                    await _imageService.Insert(dto);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(department);
+                return View(dto);
             }
             catch(Exception ex)
             {
@@ -45,22 +46,22 @@ namespace Web.Areas.Admin.Controllers
             }
         }
 
-        // GET: DepartmentController/Edit/5
+        // GET: DepartmentImageController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var d = await _departmentService.GetDepartmentById(id);
+            var d = await _imageService.GetDepartmentImageById(id);
             return View(d);
         }
 
-        // POST: DepartmentController/Edit/5
+        // POST: DepartmentImageController/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit(DepartmentDto dto)
+        public async Task<ActionResult> Edit(DepartmentImageDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _departmentService.Update(dto);
+                    await _imageService.Update(dto);
                     return RedirectToAction(nameof(Index));
                 }
                 return View(dto);
@@ -71,22 +72,22 @@ namespace Web.Areas.Admin.Controllers
             }
         }
 
-        // GET: DepartmentController/Delete/5
+        // GET: DepartmentImageController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var d = await _departmentService.GetDepartmentById(id);
+            var d = await _imageService.GetDepartmentImageById(id);
             return View(d);
         }
 
-        // POST: DepartmentController/Delete/5
+        // POST: DepartmentImageController/Delete/5
         [HttpPost]
-        public async Task<ActionResult> Delete(DepartmentDto dto)
+        public async Task<ActionResult> Delete(DepartmentImageDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _departmentService.Delete(dto);
+                    await _imageService.Delete(dto);
                     return RedirectToAction(nameof(Index));
                 }
                 return View(dto);
