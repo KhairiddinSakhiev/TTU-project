@@ -1,49 +1,288 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Web.styles.css" asp-append-version="true" />
+    <meta charset="UTF-8">
+    <title>Технологияи иттилоотӣ ва коммуникатсионӣ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Department - Website" />
+    <meta name="author" content="merkulove">
+    <meta name="keywords" content="" />
+    <link rel="icon" href="~/resources/Images/Faculty.png">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/responsive.css">
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+
+    <div class="wrapper">
+
+        <div class="main-section">
+            <header>
+                <div class="container col-xl-11 col-lg-11 col-md-11 col-sm-12 col-xsm-12">
+                    <div class="header-content d-flex  align-items-center justify-content-between">
+                        <div class="logo d-flex align-items-center">
+                            <a href="https://web.ttu.tj/tj" title="">
+                                <img src="~/resources/Images/logo.png" alt="" srcset="~/resources/Images/logo.png 2x"
+                                    width=130 class="img-fluid">
+                            </a>
+
+                        </div>
+                        <div class="text-uppercase font-weight-bold col-lg-8 col-md-6 col-sm-4 col-12 univer-info">
+                            <p class="text-center">Донишгоҳи техникии Тоҷикистон ба номи М.С Осимӣ</p>
+                            <p class="text-center">Факултети технологияи иттилоотӣ ва коммуникатсионӣ</p>
+                        </div>
+                        <div class="logo d-flex align-items-center">
+                            <a href="index.html" title="">
+                                <img src="~/resources/Images/Faculty.png" alt=""
+                                    srcset="~/resources/Images/Faculty.png 2x" width=130 class="img-fluid">
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="menu-btn">
+                        <a href="#">
+                            <span class="bar1"></span>
+                            <span class="bar2"></span>
+                            <span class="bar3"></span>
+                        </a>
+                    </div>
+                    <!--menu-btn end-->
+                    <div
+                        class="navigation-bar d-flex flex-wrap align-items-center col-xl-11 col-lg-11 col-md-11 col-sm-12 col-xsm-12">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a class="active" href="~/home/index" title="">Факултет</a>
+                                    <ul>
+                                        <li><a href="~/events/history" title="">Маълумот дар бораи факултет</a></li>
+                                        <li><a href="~/events/homedepartments" title="">Кафедраҳо</a> </li>
+                                        <li><a href="schedule.html" title="">Сохтори факултет</a></li>
+                                        <li><a href="error.html" title="">Иттифоқи касаба</a></li>
+                                        <li><a href="error.html" title="">Шӯрои олимон</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="~/sciencework/index" title="">Таълим</a>
+                                    <ul>
+                                        <li><a href="~/events/history" title="">Шӯрои таълимӣ-методӣ</a></li>
+                                        <li><a href="event-single.html" title="">Видеодарсҳо</a> </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="~/class/index" title="">Илм ва инноватсия</a>
+                                    <ul>
+                                        <li><a href="~/events/history" title="">Интишороти илмӣ</a></li>
+                                        <li><a href="event-single.html" title="">Маҳзани электронӣ</a> </li>
+                                        <li><a href="schedule.html" title="">Чорабиниҳо</a></li>
+                                        <li><a href="error.html" title="">Марказҳо ва озмоишгоҳҳои илмӣ</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="~/teacher/index" title="">Тарбия</a>
+                                    <ul>
+                                        <li><a href="~/events/history" title="">Кор бо ҷавонон</a></li>
+                                        <li><a href="event-single.html" title="">Иттилоот ва робита бо ҷомеа</a> </li>
+                                        <li><a href="schedule.html" title="">Муқовимат бо коррупсия</a></li>
+                                        <li><a href="error.html" title="">Шӯрои кураторон</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="~/teacher/index" title="">Ҳамкориҳои байналмилалӣ</a>
+                                    <ul>
+                                        <li><a href="~/events/history" title="">Довталабони хориҷӣ</a></li>
+                                        <li><a href="event-single.html" title="">Робитаҳои байналмилалӣ</a> </li>
+                                        <li><a href="schedule.html" title="">Лоиҳаҳо ва грантҳо</a></li>
+                                        <li><a href="error.html" title="">Маълумоти муфид</a></li>
+                                        <li><a href="error.html" title="">Шарикони байналмилалӣ</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="~/order/index" title="">Ҳадафҳои рушд</a>
+                                    <ul>
+                                        <li><a href="~/events/history" title="">Таъмини истиқлолияти энергетикӣ</a></li>
+                                        <li><a href="event-single.html" title="">Баромадан аз бунбасти
+                                                коммуникатсионӣ</a>
+                                        </li>
+                                        <li><a href="schedule.html" title="">Таъмини амнияти озуқаворӣ</a></li>
+                                        <li><a href="error.html" title="">Саноатикунонии босуръати кишвар</a></li>
+                                        <li><a href="error.html" title="">2020-2040</a></li>
+                                        <li><a href="error.html" title="">2022-2026</a></li>
+                                        <li><a href="error.html" title="">Илм фурӯғи маърифат</a></li>
+                                        <li><a href="error.html" title="">Фурӯғи субҳи доноӣ китоб аст</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!--nav end-->
+                        <ul class="social-links ml-auto">
+                            <li>
+                                <a href="https://www.instagram.com/intellect.edu.tj/" title="">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <!--header-content end-->
+
+                <!--navigation-bar end-->
+
+            </header>
+            <!--header end-->
+
+            <div class="responsive-menu">
+                <ul>
+                                <li>
+                                    <a class="active" href="~/home/index" title="">Факултет</a>                                
+                                </li>
+                                <li>
+                                    <a href="~/sciencework/index" title="">Таълим</a>                                    
+                                </li>
+                                <li>
+                                    <a href="~/class/index" title="">Илм ва инноватсия</a>                                   
+                                </li>
+                                <li>
+                                    <a href="~/teacher/index" title="">Тарбия</a>                                    
+                                </li>
+                                <li>
+                                    <a href="~/teacher/index" title="">Ҳамкориҳои байналмилалӣ</a>                                    
+                                </li>
+                                <li>
+                                    <a href="~/order/index" title="">Ҳадафҳои рушд</a>                                    
+                                </li>
+                            </ul>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+            <!--responsive-menu end-->
+
+        </div>
+        <!--main-section end-->
+
+
+        @RenderBody()
+
+
+        <footer>
+            <div class="container">
+                <div class="top-footer">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="widget widget-about d-flex align-items-center">
+                                <img src="~/resources/Images/Faculty.png" alt="" width=120>                          
+                            </div>
+                            <!--widget-about end-->
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="widget widget-contact">
+                                <ul class="contact-add">
+                                    <li>
+                                        <div class="contact-info">
+                                            <img src="~/assets/img/icon1.png" alt="">
+                                            <div class="contact-tt">
+                                                <h4>Телефонҳо</h4>
+                                                <span>555 16 16 16</span>
+                                                <span>554 16 16 16</span>                                                
+                                            </div>
+                                        </div>
+                                        <!--contact-info end-->
+                                    </li>
+                                    <li>
+                                        <div class="contact-info">
+                                            <img src="~/assets/img/icon2.png" alt="">
+                                            <div class="contact-tt">
+                                                <h4>Вақти корӣ</h4>
+                                                <span>Mon - sat 2 PM - 8 PM</span>
+                                                <span>Sunday - 9 AM - 8 PM</span>
+                                            </div>
+                                        </div>
+                                        <!--contact-info end-->
+                                    </li>
+                                    <li>
+                                        <div class="contact-info">
+                                            <img src="~/assets/img/icon3.png" alt="">
+                                            <div class="contact-tt">
+                                                <h4>Суроға</h4>
+                                                <span>Street Mohi Nav 71/1</span>                                                            
+                                            </div>
+                                        </div>
+                                        <!--contact-info end-->
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--widget-contact end-->
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="widget widget-links">
+                                <h3 class="widget-title"></h3>
+                                <ul>
+                                <li>
+                                    <a class="active" href="~/home/index" title="">Факултет</a>                                    
+                                </li>
+                                <li>
+                                    <a href="~/sciencework/index" title="">Таълим</a>                                   
+                                </li>
+                                <li>
+                                    <a href="~/class/index" title="">Илм ва инноватсия</a>                                    
+                                </li>
+                                <li>
+                                    <a href="~/teacher/index" title="">Тарбия</a>                                    
+                                </li>
+                                <li>
+                                    <a href="~/teacher/index" title="">Ҳамкориҳои байналмилалӣ</a>                                   
+                                </li>
+                                <li>
+                                    <a href="~/order/index" title="">Ҳадафҳои рушд</a>                                    
+                                </li>
+                            </ul>
+                            </div>
+                            <!--widget-links end-->
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="widget widget-iframe">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3119.2854183296763!2d68.75666691560933!3d38.57327467358864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38b5d155f75ef023%3A0xfe8af5f57b223049!2z0JTQvtC90LjRiNCz0L7Ss9C4INCi0LXRhdC90LjQutC4INCi0L7St9C40LrQuNGB0YLQvtC9INCx0LAg0L3QvtC80Lgg0Jwu0J7RgdC40LzToyAo0KTQsNC60YPQu9GC0LXRgtC4INGB0L7RhdGC0LzQvtC9LCDQutC-0LzRg9C90LjQutCw0YbQuNGPLCDRgtC10YXQvdC-0LvQvtCz0LjRj9C4INC40L3QvtCy0LBj0LjQvtC906Mp!5e0!3m2!1sen!2s!4v1649411484634!5m2!1sen!2s"
+                                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                            <!--widget-iframe end-->
+                        </div>
+                    </div>
+                </div>
+                <!--top-footer end-->
+                <div class="bottom-footer">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <p>Донишгоҳи техникии Тоҷикистон ба номи М.С. Осимӣ</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <ul class="social-links">
+                                <li>
+                                    <a href="https://www.instagram.com/intellect.edu.tj/" title="">
+                                        <i class="fab fa-facebook"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--bottom-footer end-->
+            </div>
+        </footer>
+        <!--footer end-->
+
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="~/assets/js/jquery.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/isotope.js"></script>
+    <script src="~/assets/js/html5lightbox.js"></script>
+    <script src="~/assets/js/slick.min.js"></script>
+    <script src="~/assets/js/tweenMax.js"></script>
+    <script src="~/assets/js/scripts.js"></script>
 </body>
+
 </html>
