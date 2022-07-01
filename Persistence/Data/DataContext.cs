@@ -22,5 +22,7 @@ namespace Persistence.Data
         public DbSet<Position> Positions { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<TeacherPosition> TeacherPositions { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<News> Newses { get; set; }
     }
 }

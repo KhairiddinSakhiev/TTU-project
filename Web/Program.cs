@@ -11,6 +11,12 @@ builder.Services.AddScoped<PositionService>();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IDepartmentImageService,DepartmentImageService>();
+builder.Services.AddScoped<IDepartmentService,DepartmentService>();
+builder.Services.AddScoped<ISliderService, SliderService>();
+builder.Services.AddAutoMapper(typeof(IMapperService));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
