@@ -28,7 +28,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HST`S value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseHsts();   
 }
 
 app.UseHttpsRedirection();
@@ -47,6 +47,12 @@ app.UseEndpoints(endpoints =>
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 });
+
+  app.Run(context =>
+  {
+    context.Response.StatusCode = 404;
+    return Task.FromResult(0);
+  });
 
 
 app.Run();
