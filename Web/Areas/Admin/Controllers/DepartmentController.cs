@@ -14,14 +14,14 @@ namespace Web.Areas.Admin.Controllers
             _departmentService = departmentService;
         }
         // GET: DepartmentController
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var list = await _departmentService.GetDepartments();
+            var list =  _departmentService.GetDepartments();
             return View(list);
         }
 
         // GET: DepartmentController/Create
-        public async Task<ActionResult> Create()
+        public ActionResult Create()
         {
             return View(new DepartmentDto());
         }
