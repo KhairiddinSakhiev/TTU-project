@@ -18,6 +18,7 @@ namespace Domain.Entities
         public string? Description { get; set; }
         public bool? Enabled { get; set; }
         public virtual List<DepartmentImage>? DepartmentImages { get; set; }
+        public virtual  List<Position>? Positions { get; set; }
 
     }
 }
