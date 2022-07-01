@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
+using Services.EntitiesServices.DepartmentImageServices;
+using Services.EntitiesServices.DepartmentServices;
 using Services.EntitiesServices.Position;
+using Services.EntitiesServices.SliderServices;
+using Services.MapperServices;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -23,7 +27,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    // The default HST`S value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
