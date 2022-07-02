@@ -1,6 +1,6 @@
 ﻿namespace Domain.EntitiesDto;
 
-public class TeacherPosition
+public class TeacherPositionDto
 {
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }

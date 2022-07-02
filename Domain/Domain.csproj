@@ -10,4 +10,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="EntitiesDto\TeacherDto.cs">
+      <DependentUpon>DepartmentDto.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
