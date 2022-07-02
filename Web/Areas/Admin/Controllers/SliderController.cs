@@ -1,5 +1,4 @@
 ﻿using Domain.EntitiesDto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.EntitiesServices.SliderServices;
 
@@ -8,15 +7,17 @@ namespace Web.Areas.Admin.Controllers
     public class SliderController : BaseController
     {
         private readonly ISliderService _sliderService;
+        private readonly ILogger<SliderController> _logger;
 
-        public SliderController(ISliderService sliderService)
+        public SliderController(ISliderService sliderService,ILogger<SliderController> logger)
         {
             _sliderService = sliderService;
+            _logger = logger;
         }
         // GET: SliderController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var list = _sliderService.GetSliders();
+            var list = await _sliderService.GetSliders();
             return View(list);
         }
 
@@ -30,7 +31,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: SliderController/Create
         [HttpPost]
-        public async Task<ActionResult> Create(SliderDto slider)
+        public async Task<ActionResult?> Create(SliderDto slider)
         {
             try
             {
@@ -41,9 +42,11 @@ namespace Web.Areas.Admin.Controllers
                 }
                 return View(slider);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return View(ex.Message);
+
+                _logger.LogError(ex, "Something went wrong on the server, please wait");
+                return null;
             }
         }
 
@@ -55,7 +58,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: SliderController/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit(SliderDto dto)
+        public async Task<ActionResult?> Edit(SliderDto dto)
         {
             try
             {
@@ -68,19 +71,22 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return View(ex.Message);
+
+                _logger.LogError(ex, "Something went wrong on the server, please wait");
+                return null;
             }
         }
 
         // GET: SliderController/Delete/5
         public async Task<ActionResult> Delete(int id)
-        {var slider = await _sliderService.GetSliderById(id);
+        {
+            var slider = await _sliderService.GetSliderById(id);
             return View(slider);
         }
 
         // POST: SliderController/Delete/5
         [HttpPost]
-        public async Task<ActionResult> Delete(SliderDto dto)
+        public async Task<ActionResult?> Delete(SliderDto dto)
         {
             try
             {
@@ -93,7 +99,9 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return View(ex.Message);
+
+                _logger.LogError(ex, "Something went wrong on the server, please wait");
+                return null;
             }
         }
     }

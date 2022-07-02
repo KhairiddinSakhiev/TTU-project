@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
+using Serilog;
 using Services.EntitiesServices.DepartmentImageServices;
 using Services.EntitiesServices.DepartmentServices;
 using Services.EntitiesServices.Position;
@@ -20,6 +21,12 @@ builder.Services.AddScoped<IDepartmentService,DepartmentService>();
 builder.Services.AddScoped<ISliderService, SliderService>();
 builder.Services.AddAutoMapper(typeof(IMapperService));
 
+var logger = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 

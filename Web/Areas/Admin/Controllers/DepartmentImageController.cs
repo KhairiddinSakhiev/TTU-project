@@ -8,15 +8,17 @@ namespace Web.Areas.Admin.Controllers
     public class DepartmentImageController : BaseController
     {
         private readonly IDepartmentImageService _imageService;
+        private readonly ILogger<DepartmentImageController> _logger;
 
-        public DepartmentImageController(IDepartmentImageService imageService)
+        public DepartmentImageController(IDepartmentImageService imageService,ILogger<DepartmentImageController> logger)
         {
             _imageService = imageService;
+            _logger = logger;
         }
         // GET: DepartmentImageController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var list = _imageService.GetDepartmentImages();
+            var list =await _imageService.GetDepartmentImages();
             return View(list);
         }
 
@@ -29,7 +31,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: DepartmentImageController/Create
         [HttpPost]
-        public async Task<ActionResult> Create(DepartmentImageDto dto)
+        public async Task<ActionResult?> Create(DepartmentImageDto dto)
         {
             try
             {
@@ -40,9 +42,11 @@ namespace Web.Areas.Admin.Controllers
                 }
                 return View(dto);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return View(ex.Message);
+
+                _logger.LogError(ex, "Something went wrong on the server, please wait");
+                return null;
             }
         }
 
@@ -55,7 +59,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: DepartmentImageController/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit(DepartmentImageDto dto)
+        public async Task<ActionResult?> Edit(DepartmentImageDto dto)
         {
             try
             {
@@ -68,7 +72,9 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return View(ex.Message);
+
+                _logger.LogError(ex, "Something went wrong on the server, please wait");
+                return null;
             }
         }
 
@@ -81,7 +87,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: DepartmentImageController/Delete/5
         [HttpPost]
-        public async Task<ActionResult> Delete(DepartmentImageDto dto)
+        public async Task<ActionResult?> Delete(DepartmentImageDto dto)
         {
             try
             {
@@ -94,7 +100,9 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return View(ex.Message);
+
+                _logger.LogError(ex, "Something went wrong on the server, please wait");
+                return null;
             }
         }
     }
