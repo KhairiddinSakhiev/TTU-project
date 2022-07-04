@@ -5,95 +5,107 @@ using Services.EntitiesServices.DepartmentImageServices;
 
 namespace Web.Controllers
 {
-    public class DepartmentImageController : Controller
+    public class DepartmentImageController :Controller
     {
-        private readonly IDepartmentImageService _departmentImageService;
+        private readonly IDepartmentImageService _imageService;
+        private readonly ILogger<DepartmentImageController> _logger;
 
-        public DepartmentImageController(IDepartmentImageService departmentImageService )
+        public DepartmentImageController(IDepartmentImageService imageService,ILogger<DepartmentImageController> logger)
         {
-            _departmentImageService = departmentImageService;
+            _imageService = imageService;
+            _logger = logger;
         }
         // GET: DepartmentImageController
         public async Task<ActionResult> Index()
         {
-            var list = await _departmentImageService.GetDepartmentImages();
+            var list =await _imageService.GetDepartmentImages();
             return View(list);
         }
 
+
         // GET: DepartmentImageController/Create
-        public async Task<ActionResult> Create()
+        public ActionResult Create()
         {
             return View(new DepartmentImageDto());
         }
 
         // POST: DepartmentImageController/Create
         [HttpPost]
-        public async Task<ActionResult> Create(DepartmentImageDto departmentImage)
+        public async Task<ActionResult?> Create(DepartmentImageDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _departmentImageService.Insert(departmentImage);
+                    await _imageService.Insert(dto);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(departmentImage);
+                return View(dto);
             }
-            catch
+            catch (Exception ex)
             {
-                return View("Error");
+
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
         }
 
         // GET: DepartmentImageController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var d = await _departmentImageService.GetDepartmentImageById(id);
+            var d = await _imageService.GetDepartmentImageById(id);
             return View(d);
         }
 
         // POST: DepartmentImageController/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit(DepartmentImageDto departmentImage)
+        public async Task<ActionResult?> Edit(DepartmentImageDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _departmentImageService.Update(departmentImage);
+                    await _imageService.Update(dto);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(departmentImage);
+                return View(dto);
             }
-            catch
+            catch (Exception ex)
             {
-                return View("Error");
+
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
         }
 
         // GET: DepartmentImageController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var department = await _departmentImageService.GetDepartmentImageById(id);
-            return View(department);
+            var d = await _imageService.GetDepartmentImageById(id);
+            return View(d);
         }
 
         // POST: DepartmentImageController/Delete/5
         [HttpPost]
-        public async Task<ActionResult> Delete(DepartmentImageDto departmentImage)
+        public async Task<ActionResult?> Delete(DepartmentImageDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _departmentImageService.Delete(departmentImage);
+                    await _imageService.Delete(dto);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(departmentImage);
+                return View(dto);
             }
-            catch
+            catch (Exception ex)
             {
-                return View("Error");
+
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
         }
     }
