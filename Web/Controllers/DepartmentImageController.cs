@@ -45,8 +45,9 @@ namespace Web.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "Something went wrong on the server, please wait");
-                return null;
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
         }
 
@@ -73,8 +74,9 @@ namespace Web.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "Something went wrong on the server, please wait");
-                return null;
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
         }
 
@@ -101,8 +103,9 @@ namespace Web.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "Something went wrong on the server, please wait");
-                return null;
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
         }
     }

@@ -9,7 +9,7 @@ namespace Web.Areas.Admin.Controllers
         private readonly ISliderService _sliderService;
         private readonly ILogger<SliderController> _logger;
 
-        public SliderController(ISliderService sliderService,ILogger<SliderController> logger)
+        public SliderController(ISliderService sliderService, ILogger<SliderController> logger)
         {
             _sliderService = sliderService;
             _logger = logger;
@@ -21,7 +21,7 @@ namespace Web.Areas.Admin.Controllers
             return View(list);
         }
 
-       
+
 
         // GET: SliderController/Create
         public ActionResult Create()
@@ -45,14 +45,16 @@ namespace Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "Something went wrong on the server, please wait");
-                return null;
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(slider);
             }
         }
 
         // GET: SliderController/Edit/5
         public async Task<ActionResult> Edit(int id)
-        { var slider = await _sliderService.GetSliderById(id);
+        {
+            var slider = await _sliderService.GetSliderById(id);
             return View(slider);
         }
 
@@ -72,9 +74,11 @@ namespace Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "Something went wrong on the server, please wait");
-                return null;
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
+
         }
 
         // GET: SliderController/Delete/5
@@ -100,9 +104,11 @@ namespace Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "Something went wrong on the server, please wait");
-                return null;
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
+
         }
     }
 }

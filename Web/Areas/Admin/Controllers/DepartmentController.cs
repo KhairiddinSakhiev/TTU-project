@@ -41,11 +41,12 @@ namespace Web.Areas.Admin.Controllers
                 }
                 return View(department);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-             
-                _logger.LogError(ex, "Something went wrong on the server, please wait");
-                return null;
+
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(department);
             }
         }
 
@@ -72,8 +73,9 @@ namespace Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "Something went wrong on the server, please wait");
-                return null;
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
         }
 
@@ -100,8 +102,9 @@ namespace Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex, "Something went wrong on the server, please wait");
-                return null;
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
         }
     }
