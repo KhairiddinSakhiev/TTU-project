@@ -3,8 +3,10 @@ using Persistence.Data;
 using Serilog;
 using Services.EntitiesServices.DepartmentImageServices;
 using Services.EntitiesServices.DepartmentServices;
+using Services.EntitiesServices.NewsServices;
 using Services.EntitiesServices.Position;
 using Services.EntitiesServices.SliderServices;
+using Services.EntitiesServices.StudentServices;
 using Services.MapperServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddScoped<PositionService>();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IDepartmentImageService,DepartmentImageService>();
 builder.Services.AddScoped<IDepartmentService,DepartmentService>();
 builder.Services.AddScoped<ISliderService, SliderService>();
