@@ -50,25 +50,29 @@ public class TeacherService : ITeacherService
 
     public async Task<TeacherDto> GetTeacherById(int id)
     {
-        var finded = await (from t in _context.Teachers
-            where t.Id == id
-            select new TeacherDto
-            {
-                Id = t.Id,
-                FirstName = t.FirstName,
-                LastName = t.LastName,
-                MiddleName = t.MiddleName,
-                Address = t.Address,
-                Description = t.Description,
-                Email = t.Email,
-                Image = t.Image,
-                BirthDate = t.BirthDate,
-                PhoneNumber = t.PhoneNumber,
-                Gender = t.Gender,
-                Status = t.Status,
-                Degree = t.Degree
-            }).FirstOrDefaultAsync();
-        return finded;
+        
+        var finded = await _context.Teachers.FindAsync(id);
+        var conv = _mapper.Map<TeacherDto>(finded);
+        return conv;
+        // var finded = await (from t in _context.Teachers
+        //     where t.Id == id
+        //     select new TeacherDto
+        //     {
+        //         Id = t.Id,
+        //         FirstName = t.FirstName,
+        //         LastName = t.LastName,
+        //         MiddleName = t.MiddleName,
+        //         Address = t.Address,
+        //         Description = t.Description,
+        //         Email = t.Email,
+        //         Image = t.Image,
+        //         BirthDate = t.BirthDate,
+        //         PhoneNumber = t.PhoneNumber,
+        //         Gender = t.Gender,
+        //         Status = t.Status,
+        //         Degree = t.Degree
+        //     }).FirstOrDefaultAsync();
+        // return finded;
     }
 
     public async Task<int> DeleteTeacher(int id)
