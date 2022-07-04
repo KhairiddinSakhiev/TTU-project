@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Services.EntitiesServices.SliderServices;
 
-namespace Web.Controllers
+namespace Web.Areas.Admin.Controllers
 {
-    public class SliderController :Controller
+    public class SliderController : BaseController
     {
         private readonly ISliderService _sliderService;
         private readonly ILogger<SliderController> _logger;
 
-        public SliderController(ISliderService sliderService,ILogger<SliderController> logger)
+        public SliderController(ISliderService sliderService, ILogger<SliderController> logger)
         {
             _sliderService = sliderService;
             _logger = logger;
@@ -21,7 +21,7 @@ namespace Web.Controllers
             return View(list);
         }
 
-       
+
 
         // GET: SliderController/Create
         public ActionResult Create()
@@ -53,7 +53,8 @@ namespace Web.Controllers
 
         // GET: SliderController/Edit/5
         public async Task<ActionResult> Edit(int id)
-        { var slider = await _sliderService.GetSliderById(id);
+        {
+            var slider = await _sliderService.GetSliderById(id);
             return View(slider);
         }
 
@@ -77,6 +78,7 @@ namespace Web.Controllers
                 ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
                 return View(dto);
             }
+
         }
 
         // GET: SliderController/Delete/5
@@ -101,10 +103,12 @@ namespace Web.Controllers
             }
             catch (Exception ex)
             {
+
                 _logger.LogError(ex.ToString());
                 ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
                 return View(dto);
             }
+
         }
     }
 }

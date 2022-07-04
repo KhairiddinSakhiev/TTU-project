@@ -49,7 +49,7 @@ namespace Services.EntitiesServices.SliderServices
                                 {
                                     Id=s.Id,
                                     Title=s.Title,
-                                   // Image=s.Image,
+                                    ImageName=s.Image,
                                     Enabled=s.Enabled
 
                                 }).FirstOrDefaultAsync();

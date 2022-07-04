@@ -5,18 +5,20 @@ using Services.EntitiesServices.DepartmentServices;
 
 namespace Web.Areas.Admin.Controllers
 {
-    public class DepartmentController : Controller
+    public class DepartmentController : BaseController
     {
         private readonly IDepartmentService _departmentService;
+        private readonly ILogger<DepartmentController> _logger;
 
-        public DepartmentController(IDepartmentService departmentService )
+        public DepartmentController(IDepartmentService departmentService, ILogger<DepartmentController> logger)
         {
             _departmentService = departmentService;
+            _logger = logger;
         }
         // GET: DepartmentController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var list =  _departmentService.GetDepartments();
+            var list =  await _departmentService.GetDepartments();
             return View(list);
         }
 
@@ -28,7 +30,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: DepartmentController/Create
         [HttpPost]
-        public async Task<ActionResult> Create(DepartmentDto department)
+        public async Task<ActionResult?> Create(DepartmentDto department)
         {
             try
             {
@@ -39,9 +41,12 @@ namespace Web.Areas.Admin.Controllers
                 }
                 return View(department);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return View(ex.Message);
+
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(department);
             }
         }
 
@@ -54,7 +59,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: DepartmentController/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit(DepartmentDto dto)
+        public async Task<ActionResult?> Edit(DepartmentDto dto)
         {
             try
             {
@@ -67,7 +72,10 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return View(ex.Message);
+
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
         }
 
@@ -80,7 +88,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: DepartmentController/Delete/5
         [HttpPost]
-        public async Task<ActionResult> Delete(DepartmentDto dto)
+        public async Task<ActionResult?> Delete(DepartmentDto dto)
         {
             try
             {
@@ -93,7 +101,10 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                return View(ex.Message);
+
+                _logger.LogError(ex.ToString());
+                ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
+                return View(dto);
             }
         }
     }

@@ -1,71 +1,72 @@
 ﻿using Domain.EntitiesDto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Services.EntitiesServices.SliderServices;
+using Services.EntitiesServices.DepartmentImageServices;
 
-namespace Web.Controllers
+namespace Web.Areas.Admin.Controllers
 {
-    public class SliderController :Controller
+    public class DepartmentImageController : BaseController
     {
-        private readonly ISliderService _sliderService;
-        private readonly ILogger<SliderController> _logger;
+        private readonly IDepartmentImageService _imageService;
+        private readonly ILogger<DepartmentImageController> _logger;
 
-        public SliderController(ISliderService sliderService,ILogger<SliderController> logger)
+        public DepartmentImageController(IDepartmentImageService imageService,ILogger<DepartmentImageController> logger)
         {
-            _sliderService = sliderService;
+            _imageService = imageService;
             _logger = logger;
         }
-        // GET: SliderController
+        // GET: DepartmentImageController
         public async Task<ActionResult> Index()
         {
-            var list = await _sliderService.GetSliders();
+            var list =await _imageService.GetDepartmentImages();
             return View(list);
         }
 
-       
 
-        // GET: SliderController/Create
+        // GET: DepartmentImageController/Create
         public ActionResult Create()
         {
-            return View(new SliderDto());
+            return View(new DepartmentImageDto());
         }
 
-        // POST: SliderController/Create
+        // POST: DepartmentImageController/Create
         [HttpPost]
-        public async Task<ActionResult?> Create(SliderDto slider)
+        public async Task<ActionResult?> Create(DepartmentImageDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _sliderService.Insert(slider);
+                    await _imageService.Insert(dto);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(slider);
+                return View(dto);
             }
             catch (Exception ex)
             {
 
                 _logger.LogError(ex.ToString());
                 ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
-                return View(slider);
+                return View(dto);
             }
         }
 
-        // GET: SliderController/Edit/5
+        // GET: DepartmentImageController/Edit/5
         public async Task<ActionResult> Edit(int id)
-        { var slider = await _sliderService.GetSliderById(id);
-            return View(slider);
+        {
+            var d = await _imageService.GetDepartmentImageById(id);
+            return View(d);
         }
 
-        // POST: SliderController/Edit/5
+        // POST: DepartmentImageController/Edit/5
         [HttpPost]
-        public async Task<ActionResult?> Edit(SliderDto dto)
+        public async Task<ActionResult?> Edit(DepartmentImageDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _sliderService.Update(dto);
+                    await _imageService.Update(dto);
                     return RedirectToAction(nameof(Index));
                 }
                 return View(dto);
@@ -79,28 +80,29 @@ namespace Web.Controllers
             }
         }
 
-        // GET: SliderController/Delete/5
+        // GET: DepartmentImageController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var slider = await _sliderService.GetSliderById(id);
-            return View(slider);
+            var d = await _imageService.GetDepartmentImageById(id);
+            return View(d);
         }
 
-        // POST: SliderController/Delete/5
+        // POST: DepartmentImageController/Delete/5
         [HttpPost]
-        public async Task<ActionResult?> Delete(SliderDto dto)
+        public async Task<ActionResult?> Delete(DepartmentImageDto dto)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _sliderService.Delete(dto);
+                    await _imageService.Delete(dto);
                     return RedirectToAction(nameof(Index));
                 }
                 return View(dto);
             }
             catch (Exception ex)
             {
+
                 _logger.LogError(ex.ToString());
                 ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
                 return View(dto);
