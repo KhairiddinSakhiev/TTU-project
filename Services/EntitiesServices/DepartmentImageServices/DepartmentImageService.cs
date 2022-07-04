@@ -53,7 +53,9 @@ namespace Services.EntitiesServices.DepartmentImageServices
 
         public async Task<List<DepartmentImage>> GetDepartmentImages()
         {
-            return await _context.DepartmentImages.ToListAsync();
+            return await _context.DepartmentImages
+                .Include(p=>p.Department)
+                .ToListAsync();
         }
 
         public async Task<int> Insert(DepartmentImageDto department)
