@@ -4,7 +4,9 @@ using Serilog;
 using Services.EntitiesServices.DepartmentImageServices;
 using Services.EntitiesServices.DepartmentServices;
 using Services.EntitiesServices.Position;
+using Services.EntitiesServices.PositionServices;
 using Services.EntitiesServices.SliderServices;
+using Services.EntitiesServices.TeacherServices;
 using Services.MapperServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,13 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connection = builder.Configuration.GetConnectionString("ConnectionDb");
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connection));
-builder.Services.AddScoped<PositionService>();
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IDepartmentImageService,DepartmentImageService>();
 builder.Services.AddScoped<IDepartmentService,DepartmentService>();
 builder.Services.AddScoped<ISliderService, SliderService>();
+builder.Services.AddScoped<IPositionService,PositionService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddAutoMapper(typeof(IMapperService));
 
 var logger = new LoggerConfiguration()
