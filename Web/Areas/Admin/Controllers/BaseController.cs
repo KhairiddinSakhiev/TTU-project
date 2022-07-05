@@ -9,7 +9,7 @@ namespace Web.Areas.Admin.Controllers
     public class BaseController : Controller
     {
 
-        public  IActionResult Index()
+        public  IActionResult BaseIndex()
         {
             return View();
         }

@@ -5,6 +5,7 @@ using Services.EntitiesServices.DepartmentServices;
 
 namespace Web.Areas.Admin.Controllers
 {
+   
     public class DepartmentController : BaseController
     {
         private readonly IDepartmentService _departmentService;
@@ -16,7 +17,7 @@ namespace Web.Areas.Admin.Controllers
             _logger = logger;
         }
         // GET: DepartmentController
-        public new async Task<ActionResult> Index()
+        public async Task<ActionResult> Index()
         {
             var list =  await _departmentService.GetDepartments();
             return View(list);
