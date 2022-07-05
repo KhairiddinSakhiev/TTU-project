@@ -16,7 +16,7 @@ namespace Web.Areas.Admin.Controllers
             _logger = logger;
         }
         // GET: DepartmentController
-        public async Task<ActionResult> Index()
+        public new async Task<ActionResult> Index()
         {
             var list =  await _departmentService.GetDepartments();
             return View(list);
