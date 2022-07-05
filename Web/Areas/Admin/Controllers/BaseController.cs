@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -9,10 +8,7 @@ namespace Web.Areas.Admin.Controllers
     public class BaseController : Controller
     {
 
-        public  IActionResult BaseIndex()
-        {
-            return View();
-        }
+       
         
     }
 }
