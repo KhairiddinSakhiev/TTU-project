@@ -6,7 +6,8 @@ using Services.EntitiesServices.DepartmentServices;
 
 namespace Web.Areas.Admin.Controllers
 {
-    public class DepartmentImageController : Controller
+    
+    public class DepartmentImageController : BaseController
     {
         private readonly IDepartmentImageService _imageService;
         private readonly ILogger<DepartmentImageController> _logger;

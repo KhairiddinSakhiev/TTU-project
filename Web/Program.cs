@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Serilog;
@@ -45,8 +46,10 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(
+   // endpoints.MapAreaControllerRoute(
+      endpoints.MapControllerRoute(
       name: "Admin",
+     // areaName:"admin",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
     app.MapControllerRoute(

@@ -5,6 +5,7 @@ using Services.EntitiesServices.DepartmentServices;
 
 namespace Web.Areas.Admin.Controllers
 {
+   
     public class DepartmentController : BaseController
     {
         private readonly IDepartmentService _departmentService;
