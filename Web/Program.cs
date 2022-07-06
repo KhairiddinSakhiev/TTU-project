@@ -7,21 +7,24 @@ using Services.EntitiesServices.PositionServices;
 using Services.EntitiesServices.SliderServices;
 using Services.EntitiesServices.TeacherServices;
 using Services.MapperServices;
+using Services.EntitiesServices.Position;
+using Web.HalperExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
-
+builder.Services.AddServicesToCointainer();
 var connection = builder.Configuration.GetConnectionString("ConnectionDb");
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connection));
-
-builder.Services.AddControllersWithViews();
-
 builder.Services.AddScoped<IDepartmentImageService,DepartmentImageService>();
 builder.Services.AddScoped<IDepartmentService,DepartmentService>();
 builder.Services.AddScoped<ISliderService, SliderService>();
 builder.Services.AddScoped<IPositionService,PositionService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddAutoMapper(typeof(IMapperService));
+
+builder.Services.AddControllersWithViews();
+
+
 
 var logger = new LoggerConfiguration()
   .ReadFrom.Configuration(builder.Configuration)
