@@ -3,7 +3,6 @@ using Persistence.Data;
 using Serilog;
 using Services.EntitiesServices.DepartmentImageServices;
 using Services.EntitiesServices.DepartmentServices;
-using Services.EntitiesServices.Position;
 using Services.EntitiesServices.PositionServices;
 using Services.EntitiesServices.SliderServices;
 using Services.EntitiesServices.TeacherServices;
