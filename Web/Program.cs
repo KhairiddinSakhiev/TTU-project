@@ -56,12 +56,6 @@ app.UseEndpoints(endpoints =>
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 });
-
-  app.Run(context =>
-  {
-    context.Response.StatusCode = 404;
-    return Task.FromResult(0);
-  });
-
-
+  app.UseStatusCodePagesWithReExecute("/Home/NotFound");
+ 
 app.Run();
