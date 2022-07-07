@@ -1,6 +1,6 @@
 ﻿using Domain.EntitiesDto;
 
-namespace Services.EntitiesServices.Position;
+namespace Services.EntitiesServices.PositionServices;
 
 public interface IPositionService
 {
