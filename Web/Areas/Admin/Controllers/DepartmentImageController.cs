@@ -2,23 +2,28 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.EntitiesServices.DepartmentImageServices;
+using Services.EntitiesServices.DepartmentServices;
 
 namespace Web.Areas.Admin.Controllers
 {
+    
     public class DepartmentImageController : BaseController
     {
         private readonly IDepartmentImageService _imageService;
         private readonly ILogger<DepartmentImageController> _logger;
+        private readonly IDepartmentService _departmentService;
 
-        public DepartmentImageController(IDepartmentImageService imageService,ILogger<DepartmentImageController> logger)
+        public DepartmentImageController(IDepartmentImageService imageService,
+            ILogger<DepartmentImageController> logger, IDepartmentService departmentService)
         {
             _imageService = imageService;
             _logger = logger;
+            _departmentService = departmentService;
         }
         // GET: DepartmentImageController
         public async Task<ActionResult> Index()
         {
-            var list =await _imageService.GetDepartmentImages();
+            var list = await _imageService.GetDepartmentImages();
             return View(list);
         }
 
@@ -33,6 +38,7 @@ namespace Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<ActionResult?> Create(DepartmentImageDto dto)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             try
             {
                 if (ModelState.IsValid)
@@ -62,6 +68,7 @@ namespace Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<ActionResult?> Edit(DepartmentImageDto dto)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             try
             {
                 if (ModelState.IsValid)
@@ -91,6 +98,7 @@ namespace Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<ActionResult?> Delete(DepartmentImageDto dto)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             try
             {
                 if (ModelState.IsValid)

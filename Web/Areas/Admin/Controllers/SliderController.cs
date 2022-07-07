@@ -4,6 +4,7 @@ using Services.EntitiesServices.SliderServices;
 
 namespace Web.Areas.Admin.Controllers
 {
+    
     public class SliderController : BaseController
     {
         private readonly ISliderService _sliderService;
