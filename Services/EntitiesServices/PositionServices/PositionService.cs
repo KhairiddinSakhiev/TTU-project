@@ -43,15 +43,6 @@ public class PositionService : IPositionService
         var finded = await _context.Positions.FindAsync(id);
         var map = _mapper.Map<PositionDto>(finded);
         return map;
-        // var finded = await (from p in _context.Positions
-        //     where p.Id == id
-        //     select new PositionDto
-        //     {
-        //         Id = p.Id,
-        //         Name = p.Name,
-        //         Enabled = p.Enabled
-        //     }).FirstOrDefaultAsync();
-        // return finded;
     }
 
     public async Task<int> DeletePosition(int id)
