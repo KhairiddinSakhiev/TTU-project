@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Serilog;
@@ -7,9 +8,12 @@ using Services.EntitiesServices.PositionServices;
 using Services.EntitiesServices.SliderServices;
 using Services.EntitiesServices.TeacherServices;
 using Services.MapperServices;
+using Services.EntitiesServices.Position;
+using Web.HalperExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
+
+
 
 //Here is ConnectionString
 var connection = builder.Configuration.GetConnectionString("ConnectionDb");
@@ -25,12 +29,21 @@ builder.Services.AddScoped<ISliderService, SliderService>();
 //Here is MapperServices
 builder.Services.AddAutoMapper(typeof(IMapperService));
 
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddServicesToCointainer();
+
 var logger = new LoggerConfiguration()
   .ReadFrom.Configuration(builder.Configuration)
   .Enrich.FromLogContext()
   .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
+
+
+builder.Services.AddIdentityServices();
+
 
 var app = builder.Build();
 
@@ -50,8 +63,10 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(
+   // endpoints.MapAreaControllerRoute(
+      endpoints.MapControllerRoute(
       name: "Admin",
+     // areaName:"admin",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
     app.MapControllerRoute(
