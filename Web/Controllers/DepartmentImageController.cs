@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.EntitiesServices.DepartmentImageServices;
+using Services.EntitiesServices.DepartmentServices;
 
 namespace Web.Controllers
 {
@@ -9,11 +10,14 @@ namespace Web.Controllers
     {
         private readonly IDepartmentImageService _imageService;
         private readonly ILogger<DepartmentImageController> _logger;
+        private readonly IDepartmentService _departmentService;
 
-        public DepartmentImageController(IDepartmentImageService imageService,ILogger<DepartmentImageController> logger)
+        public DepartmentImageController(IDepartmentImageService imageService,
+            ILogger<DepartmentImageController> logger,IDepartmentService departmentService)
         {
             _imageService = imageService;
             _logger = logger;
+            _departmentService = departmentService;
         }
         // GET: DepartmentImageController
         public async Task<ActionResult> Index()
@@ -33,6 +37,7 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<ActionResult?> Create(DepartmentImageDto dto)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             try
             {
                 if (ModelState.IsValid)
@@ -62,6 +67,7 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<ActionResult?> Edit(DepartmentImageDto dto)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             try
             {
                 if (ModelState.IsValid)
@@ -82,7 +88,7 @@ namespace Web.Controllers
 
         // GET: DepartmentImageController/Delete/5
         public async Task<ActionResult> Delete(int id)
-        {
+        { 
             var d = await _imageService.GetDepartmentImageById(id);
             return View(d);
         }
@@ -91,6 +97,7 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<ActionResult?> Delete(DepartmentImageDto dto)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             try
             {
                 if (ModelState.IsValid)

@@ -1,29 +1,36 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Serilog;
 using Services.EntitiesServices.DepartmentImageServices;
 using Services.EntitiesServices.DepartmentServices;
 using Services.EntitiesServices.NewsServices;
-using Services.EntitiesServices.Position;
 using Services.EntitiesServices.SliderServices;
 using Services.EntitiesServices.StudentServices;
+using Services.EntitiesServices.PositionServices;
+using Services.EntitiesServices.TeacherServices;
 using Services.MapperServices;
+using Services.EntitiesServices.Position;
+using Web.HalperExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var connection = builder.Configuration.GetConnectionString("ConnectionDb");
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connection));
-builder.Services.AddScoped<PositionService>();
 
-builder.Services.AddControllersWithViews();
-
-builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IDepartmentImageService,DepartmentImageService>();
 builder.Services.AddScoped<IDepartmentService,DepartmentService>();
 builder.Services.AddScoped<ISliderService, SliderService>();
+builder.Services.AddScoped<IPositionService,PositionService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddAutoMapper(typeof(IMapperService));
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddServicesToCointainer();
+
 
 var logger = new LoggerConfiguration()
   .ReadFrom.Configuration(builder.Configuration)
@@ -31,6 +38,10 @@ var logger = new LoggerConfiguration()
   .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
+
+
+builder.Services.AddIdentityServices();
+
 
 var app = builder.Build();
 
@@ -50,20 +61,16 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(
+   // endpoints.MapAreaControllerRoute(
+      endpoints.MapControllerRoute(
       name: "Admin",
+     // areaName:"admin",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
     app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 });
-
-  app.Run(context =>
-  {
-    context.Response.StatusCode = 404;
-    return Task.FromResult(0);
-  });
-
-
+  app.UseStatusCodePagesWithReExecute("/Home/NotFound");
+ 
 app.Run();

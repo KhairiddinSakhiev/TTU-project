@@ -16,6 +16,8 @@ namespace Services.MapperServices
             CreateMap<DepartmentImageDto, DepartmentImage>();
             CreateMap<DepartmentDto, Department>();
             CreateMap<SliderDto, Slider>();
+            CreateMap<PositionDto, Position>();
+            CreateMap<TeacherDto, Teacher>();
         }
     }
 }
