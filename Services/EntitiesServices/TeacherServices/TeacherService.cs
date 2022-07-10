@@ -63,4 +63,12 @@ public class TeacherService : ITeacherService
         _context.Teachers.Remove(finded);
         return await _context.SaveChangesAsync();
     }
+    
+    public async Task<int> DeleteTeacher(TeacherDto teacherDto)
+    {
+        var finded = await _context.Teachers.FindAsync(teacherDto.Id);
+        if (finded == null) return 0;
+        _context.Teachers.Remove(finded);
+        return await _context.SaveChangesAsync();
+    }
 }

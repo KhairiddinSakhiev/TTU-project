@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Serilog;
@@ -24,7 +23,7 @@ builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddAutoMapper(typeof(IMapperService));
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddServicesToCointainer();
+
 
 
 var logger = new LoggerConfiguration()
@@ -33,10 +32,6 @@ var logger = new LoggerConfiguration()
   .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
-
-
-builder.Services.AddIdentityServices();
-
 
 var app = builder.Build();
 
@@ -56,16 +51,20 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
-   // endpoints.MapAreaControllerRoute(
-      endpoints.MapControllerRoute(
+    endpoints.MapControllerRoute(
       name: "Admin",
-     // areaName:"admin",
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
     app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 });
-  app.UseStatusCodePagesWithReExecute("/Home/NotFound");
- 
+
+  app.Run(context =>
+  {
+    context.Response.StatusCode = 404;
+    return Task.FromResult(0);
+  });
+
+
 app.Run();
