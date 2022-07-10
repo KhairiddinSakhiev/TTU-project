@@ -9,4 +9,5 @@ public interface ITeacherService
     Task<int> UpdateTeacher(TeacherDto teacher);
     Task<TeacherDto> GetTeacherById(int id);
     Task<int> DeleteTeacher(int id);
+    Task<int> DeleteTeacher(TeacherDto teacherDto);
 }

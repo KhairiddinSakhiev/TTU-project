@@ -52,4 +52,12 @@ public class PositionService : IPositionService
         _context.Positions.Remove(finded);
         return await _context.SaveChangesAsync();
     }
+    
+    public async Task<int> DeletePosition(PositionDto positionDto)
+    {
+        var finded = await _context.Positions.FindAsync(positionDto.Id);
+        if (finded == null) return 0;
+        _context.Positions.Remove(finded);
+        return await _context.SaveChangesAsync();
+    }
 }

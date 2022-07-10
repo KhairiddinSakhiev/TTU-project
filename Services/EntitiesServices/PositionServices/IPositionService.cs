@@ -9,4 +9,5 @@ public interface IPositionService
     Task<int> UpdatePosition(PositionDto positionDto);
     Task<PositionDto> GetPositionById(int id);
     Task<int> DeletePosition(int id);
+    Task<int> DeletePosition(PositionDto positionDto);
 }

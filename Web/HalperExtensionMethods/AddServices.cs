@@ -1,8 +1,10 @@
-﻿using Services.AccountServices;
+﻿using Domain.Entities;
+using Services.AccountServices;
 using Services.EntitiesServices.DepartmentImageServices;
 using Services.EntitiesServices.DepartmentServices;
-using Services.EntitiesServices.Position;
+using Services.EntitiesServices.PositionServices;
 using Services.EntitiesServices.SliderServices;
+using Services.EntitiesServices.TeacherServices;
 using Services.MapperServices;
 
 namespace Web.HalperExtensionMethods
@@ -15,7 +17,8 @@ namespace Web.HalperExtensionMethods
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<ISliderService, SliderService>();
             services.AddScoped<AccountService>();
-            services.AddScoped<PositionService>();
+            services.AddScoped<IPositionService, PositionService>();
+            services.AddScoped<ITeacherService, TeacherService>();
 
 
             services.AddAutoMapper(typeof(IMapperService));
