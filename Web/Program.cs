@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Serilog;
@@ -8,7 +7,7 @@ using Services.EntitiesServices.PositionServices;
 using Services.EntitiesServices.SliderServices;
 using Services.EntitiesServices.TeacherServices;
 using Services.MapperServices;
-using Services.EntitiesServices.Position;
+
 using Web.HalperExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,12 +26,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddServicesToCointainer();
 
 
-var logger = new LoggerConfiguration()
-  .ReadFrom.Configuration(builder.Configuration)
-  .Enrich.FromLogContext()
-  .CreateLogger();
-builder.Logging.ClearProviders();
-builder.Logging.AddSerilog(logger);
+// var logger = new LoggerConfiguration()
+//   .ReadFrom.Configuration(builder.Configuration)
+//   .Enrich.FromLogContext()
+//   .CreateLogger();
+// builder.Logging.ClearProviders();
+// builder.Logging.AddSerilog(logger);
 
 
 builder.Services.AddIdentityServices();
@@ -40,6 +39,9 @@ builder.Services.AddIdentityServices();
 
 var app = builder.Build();
 
+var serviceProvider = app.Services.CreateScope().ServiceProvider;
+var database = serviceProvider.GetRequiredService<DataContext>();
+database.Database.Migrate();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -66,6 +68,6 @@ app.UseEndpoints(endpoints =>
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 });
-  app.UseStatusCodePagesWithReExecute("/Home/NotFound");
+  app.UseStatusCodePagesWithReExecute("/Home/NotFoundPage");
  
 app.Run();
