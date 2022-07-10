@@ -10,7 +10,6 @@ using Services.EntitiesServices.StudentServices;
 using Services.EntitiesServices.PositionServices;
 using Services.EntitiesServices.TeacherServices;
 using Services.MapperServices;
-using Services.EntitiesServices.Position;
 using Web.HalperExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);

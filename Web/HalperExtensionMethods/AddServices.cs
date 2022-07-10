@@ -1,7 +1,7 @@
 ﻿using Services.AccountServices;
 using Services.EntitiesServices.DepartmentImageServices;
 using Services.EntitiesServices.DepartmentServices;
-using Services.EntitiesServices.Position;
+using Services.EntitiesServices.PositionServices;
 using Services.EntitiesServices.SliderServices;
 using Services.MapperServices;
 
