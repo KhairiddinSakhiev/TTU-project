@@ -56,51 +56,51 @@ public class PositionController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(TeacherDto teacherDto)
+    public async Task<IActionResult> Edit(PositionDto positionDto)
     {
         try
         {
             if (ModelState.IsValid)
             {
-                await _teacher.UpdateTeacher(teacherDto);
+                await _positionService.UpdatePosition(positionDto);
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(teacherDto);
+            return View(positionDto);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex.ToString());
             ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
-            return View(teacherDto);
+            return View(positionDto);
         }
     }
 
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
-        var finded = await _teacher.GetTeacherById(id);
+        var finded = await _positionService.GetPositionById(id);
         return View(finded);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Delete(TeacherDto teacherDto)
+    public async Task<IActionResult> Delete(PositionDto positionDto)
     {
         try
         {
             if (ModelState.IsValid)
             {
-                await _teacher.DeleteTeacher(teacherDto);
+                await _positionService.DeletePosition(positionDto);
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(teacherDto);
+            return View(positionDto);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex.ToString());
             ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
-            return View(teacherDto);
+            return View(positionDto);
         }
     }
 }

@@ -7,7 +7,7 @@ using Services.EntitiesServices.PositionServices;
 using Services.EntitiesServices.SliderServices;
 using Services.EntitiesServices.TeacherServices;
 using Services.MapperServices;
-using Services.EntitiesServices.Position;
+
 using Web.HalperExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
