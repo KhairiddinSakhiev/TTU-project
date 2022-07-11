@@ -1,14 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
-using Serilog;
-using Services.EntitiesServices.DepartmentImageServices;
-using Services.EntitiesServices.DepartmentServices;
-using Services.EntitiesServices.NewsServices;
-using Services.EntitiesServices.SliderServices;
-using Services.EntitiesServices.StudentServices;
-using Services.EntitiesServices.PositionServices;
-using Services.EntitiesServices.TeacherServices;
-using Services.MapperServices;
 using Web.HalperExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,14 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connection = builder.Configuration.GetConnectionString("ConnectionDb");
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connection));
 
-builder.Services.AddScoped<IDepartmentImageService,DepartmentImageService>();
-builder.Services.AddScoped<IDepartmentService,DepartmentService>();
-builder.Services.AddScoped<ISliderService, SliderService>();
-builder.Services.AddScoped<IPositionService,PositionService>();
-builder.Services.AddScoped<ITeacherService, TeacherService>();
-builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<INewsService, NewsService>();
-builder.Services.AddAutoMapper(typeof(IMapperService));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddServicesToCointainer();

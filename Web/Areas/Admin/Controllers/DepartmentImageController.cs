@@ -29,8 +29,9 @@ namespace Web.Areas.Admin.Controllers
 
 
         // GET: DepartmentImageController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             return View(new DepartmentImageDto());
         }
 
@@ -60,6 +61,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: DepartmentImageController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             var d = await _imageService.GetDepartmentImageById(id);
             return View(d);
         }
@@ -90,6 +92,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: DepartmentImageController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             var d = await _imageService.GetDepartmentImageById(id);
             return View(d);
         }
