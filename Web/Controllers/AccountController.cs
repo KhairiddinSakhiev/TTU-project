@@ -8,15 +8,15 @@ namespace Web.Controllers
     public class AccountController : Controller
     {
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly AccountService accountService;
+        private readonly AccountService _accountService;
         public AccountController(AccountService accountService, SignInManager<IdentityUser> signInManager)
         {
-            this.accountService = accountService;
+            _accountService = accountService;
             _signInManager = signInManager;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Login(string returnUrl)
+        public IActionResult Login(string returnUrl)
         {
             return View(new LoginDto() { ReturnUrl = returnUrl });
         }
@@ -26,8 +26,7 @@ namespace Web.Controllers
         public async Task<IActionResult> Login(LoginDto model)
         {
 
-            var account = await accountService.Login(model);
-            if (account == null) return View(model);
+            var account = await _accountService.Login(model);
             await _signInManager.SignInAsync(account, false, null);
             if (!string.IsNullOrEmpty(model.ReturnUrl))
             {
@@ -37,7 +36,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Register()
+        public IActionResult Register()
         {
             return View(new Register());
         }
@@ -46,8 +45,8 @@ namespace Web.Controllers
         public async Task<IActionResult> Register(Register model)
         {
             if (!ModelState.IsValid) return View(model);
-            await accountService.Register(model);
-            return RedirectToAction("xxxx", "xxxx");
+            await _accountService.Register(model);
+            return RedirectToAction("Login", "Account");
 
 
         }
