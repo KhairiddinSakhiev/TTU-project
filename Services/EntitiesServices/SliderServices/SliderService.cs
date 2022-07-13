@@ -4,11 +4,6 @@ using Domain.EntitiesDto;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.EntitiesServices.SliderServices
 {
@@ -16,10 +11,11 @@ namespace Services.EntitiesServices.SliderServices
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        private readonly IHostingEnvironment _webHostEnvironment;
-        //private readonly IWebHostEnvironment hostEnvironment;
-        
-        public SliderService(DataContext context,IMapper mapper, IHostingEnvironment  webHostEnvironment)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+
+
+        public SliderService(DataContext context,IMapper mapper, IWebHostEnvironment  webHostEnvironment)
         {
             _context = context;
             _mapper = mapper;
@@ -45,6 +41,7 @@ namespace Services.EntitiesServices.SliderServices
         public async Task<SliderDto> GetSliderById(int Id)
         {
             var slider = await (from s in _context.Sliders
+                                where s.Id==Id
                                 select new SliderDto
                                 {
                                     Id=s.Id,
@@ -72,7 +69,7 @@ namespace Services.EntitiesServices.SliderServices
                 await slider.Image.CopyToAsync(stream);
             }
             var mapped = _mapper.Map<Slider>(slider);
-            mapped.Image = fileName;
+            mapped.Image = slider.Image.FileName;
             await _context.Sliders.AddAsync(mapped);
             return await _context.SaveChangesAsync();
         }

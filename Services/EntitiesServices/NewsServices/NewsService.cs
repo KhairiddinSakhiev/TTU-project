@@ -4,11 +4,6 @@ using Domain.EntitiesDto;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.EntitiesServices.NewsServices
 {
@@ -16,9 +11,9 @@ namespace Services.EntitiesServices.NewsServices
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
-        private readonly IHostingEnvironment _webHostEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public NewsService(DataContext context, IMapper mapper, IHostingEnvironment webHostEnvironment)
+        public NewsService(DataContext context, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _mapper = mapper;
@@ -48,17 +43,19 @@ namespace Services.EntitiesServices.NewsServices
         {
             var fileName = Guid.NewGuid() + "_" + Path.GetFileName(news.Image.FileName);
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
-
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await news.Image.CopyToAsync(stream);
             }
+
             var mapped = _mapper.Map<News>(news);
-            mapped.Image = fileName;
+            mapped.Image = news.Image.FileName;
             await _context.Newses.AddAsync(mapped);
             return await _context.SaveChangesAsync();
         }
-        public async Task<int> Update(NewsDto news)
+
+
+            public async Task<int> Update(NewsDto news)
         {
             var fileName = Guid.NewGuid() + "_" + Path.GetFileName(news.Image.FileName);
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);

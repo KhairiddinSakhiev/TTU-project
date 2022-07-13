@@ -4,11 +4,6 @@ using Domain.EntitiesDto;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.EntitiesServices.StudentServices
 {
@@ -16,8 +11,8 @@ namespace Services.EntitiesServices.StudentServices
     {
         private readonly DataContext _cont;
         private readonly IMapper _mapper;
-        private readonly IHostingEnvironment _webHostEnvironment;
-        public StudentService(DataContext context, IMapper mapper, IHostingEnvironment webHostEnvironment)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public StudentService(DataContext context, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             _cont = context;
             _mapper = mapper;

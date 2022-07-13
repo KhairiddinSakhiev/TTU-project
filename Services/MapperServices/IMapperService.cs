@@ -18,6 +18,8 @@ namespace Services.MapperServices
             CreateMap<SliderDto, Slider>();
             CreateMap<PositionDto, Position>();
             CreateMap<TeacherDto, Teacher>();
+            CreateMap<StudentDto, Student>();
+            CreateMap<NewsDto, News>();     
         }
     }
 }
