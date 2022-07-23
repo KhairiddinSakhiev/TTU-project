@@ -1,0 +1,56 @@
+﻿@using Domain.Entities
+@model List<Student>
+
+<div class="row">
+    <div class="col-md-12">
+        <a asp-action="Create" asp-controller="Student" class="btn btn-success">Добавить</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+            <tr>     
+                   <td>FirstName</td>
+                    <td>LastName</td>
+                     <td>Image</td>
+                     <td>Description</td>
+                     <td>Title</td> 
+                      <td>Address</td> 
+                     <td>Enabled</td>
+                      <td>PhoneNumber</td> 
+                       <td>Age</td> 
+                           
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                     <td>@item.FirstName</td>
+                     <td>@item.LastName</td>
+                      <td><img width="100" height="100" src="@item.Image" alt="Photo" accept="application" /></td>
+                     <td>@item.Description</td>
+                     <td>@item.Title</td> 
+                      <td>@item.Address</td> 
+                     <td>@item.Enabled</td>
+                      <td>@item.PhoneNumber</td> 
+                       <td>@item.Age</td> 
+                     
+                   
+                   
+
+                    <td>
+                        <a asp-action="Edit" asp-controller="Student" asp-route-id="@item.Id">
+                            Измениить
+                        </a>
+                        <a asp-action="Delete" asp-controller="Student" asp-route-id="@item.Id">
+                            Удалить
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

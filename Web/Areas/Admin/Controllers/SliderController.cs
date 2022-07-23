@@ -16,7 +16,7 @@ namespace Web.Areas.Admin.Controllers
             _logger = logger;
         }
         // GET: SliderController
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var list = await _sliderService.GetSliders();
             return View(list);
@@ -25,14 +25,14 @@ namespace Web.Areas.Admin.Controllers
 
 
         // GET: SliderController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View(new SliderDto());
         }
 
         // POST: SliderController/Create
         [HttpPost]
-        public async Task<ActionResult?> Create(SliderDto slider)
+        public async Task<IActionResult> Create(SliderDto slider)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: SliderController/Edit/5
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var slider = await _sliderService.GetSliderById(id);
             return View(slider);
@@ -61,7 +61,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: SliderController/Edit/5
         [HttpPost]
-        public async Task<ActionResult?> Edit(SliderDto dto)
+        public async Task<IActionResult> Edit(SliderDto dto)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace Web.Areas.Admin.Controllers
         }
 
         // GET: SliderController/Delete/5
-        public async Task<ActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var slider = await _sliderService.GetSliderById(id);
             return View(slider);
@@ -91,7 +91,7 @@ namespace Web.Areas.Admin.Controllers
 
         // POST: SliderController/Delete/5
         [HttpPost]
-        public async Task<ActionResult?> Delete(SliderDto dto)
+        public async Task<IActionResult> Delete(SliderDto dto)
         {
             try
             {

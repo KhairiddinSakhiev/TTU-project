@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
+using Serilog;
 using Web.HalperExtensionMethods;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,12 +14,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddServicesToCointainer();
 
 
-// var logger = new LoggerConfiguration()
-//   .ReadFrom.Configuration(builder.Configuration)
-//   .Enrich.FromLogContext()
-//   .CreateLogger();
-// builder.Logging.ClearProviders();
-// builder.Logging.AddSerilog(logger);
+var logger = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .CreateLogger();
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 
 
 builder.Services.AddIdentityServices();
