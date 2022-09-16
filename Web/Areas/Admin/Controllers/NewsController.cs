@@ -13,6 +13,7 @@ namespace Web.Areas.Admin.Controllers
             _newsService = newsService;
             _logger = logger;
         }
+        [HttpGet]
         public async Task<ActionResult> Index()
         {
             var list = await _newsService.GetNewses();
@@ -51,23 +52,23 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult?> Edit(NewsDto stu)
+        public async Task<ActionResult> Edit(NewsDto dto)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (dto.Title != null)
                 {
-                    await _newsService.Update(stu);
+                    await _newsService.Update(dto);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(stu);
+                return View(dto);
             }
             catch (Exception ex)
             {
 
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
-                return View(stu);
+                return View(dto);
             }
         }
         public async Task<ActionResult> Delete(int id)
@@ -77,22 +78,22 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult?> Delete(NewsDto stu)
+        public async Task<ActionResult?> Delete(NewsDto dto)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (dto.Title!=null)
                 {
-                    await _newsService.Delete(stu);
+                    await _newsService.Delete(dto);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(stu);
+                return View(dto);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
                 ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
-                return View(stu);
+                return View(dto);
             }
         }
 
