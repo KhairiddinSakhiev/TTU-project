@@ -1,4 +1,5 @@
-﻿using Domain.EntitiesDto;
+﻿using Domain.Entities;
+using Domain.EntitiesDto;
 using Microsoft.AspNetCore.Mvc;
 using Services.EntitiesServices.SliderServices;
 
@@ -28,6 +29,11 @@ namespace Web.Areas.Admin.Controllers
         public IActionResult Create()
         {
             return View(new SliderDto());
+        }
+        [HttpGet]
+        public async Task<List<Slider>> GetSliders()
+        {
+            return await _sliderService.GetSliders();
         }
 
         // POST: SliderController/Create

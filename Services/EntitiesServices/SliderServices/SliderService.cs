@@ -69,7 +69,7 @@ namespace Services.EntitiesServices.SliderServices
                 await slider.Image.CopyToAsync(stream);
             }
             var mapped = _mapper.Map<Slider>(slider);
-            mapped.Image = slider.Image.FileName;
+            mapped.Image = fileName;
             await _context.Sliders.AddAsync(mapped);
             return await _context.SaveChangesAsync();
         }
