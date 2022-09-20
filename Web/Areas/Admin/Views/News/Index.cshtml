@@ -1,5 +1,5 @@
-﻿@using Domain.Entities
-@model List<News>
+﻿@using Domain.EntitiesDto
+@model List<NewsDto>
 
 <div class="row">
     <div class="col-md-12">
@@ -8,7 +8,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table class="table">
+        <table class="table table-active table-bordered table-hover">
             <thead>
             <tr>     
                      <td>Title</td>
@@ -24,13 +24,13 @@
             {
                 <tr>
                      <td>@item.Title</td>
-                     <td><img width="100" height="100" src="@item.Image" alt="Photo" accept="application" /></td>
+                     <td><img src="@item.ImageName"  width="100" height="100"  alt="Photo" accept="application" /></td>
                      <td>@item.Description</td>
                      <td>@item.CreatedAt</td> 
                      <td>@item.Enabled</td>                   
                    
                    
-
+                     
                     <td>
                         <a asp-action="Edit" asp-controller="News" asp-route-id="@item.Id">
                             Измениить

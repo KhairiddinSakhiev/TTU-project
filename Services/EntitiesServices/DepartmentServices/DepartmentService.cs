@@ -47,7 +47,7 @@ namespace Services.EntitiesServices.DepartmentServices
                                   Id=d.Id,
                                   Title=d.Title,
                                   Description=d.Description,
-                                  Enabled=d.Enabled
+                                  Enabled=(bool)d.Enabled
                               }).FirstOrDefaultAsync();
             if (department == null) return new DepartmentDto();
             return department;

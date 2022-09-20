@@ -19,10 +19,22 @@ namespace Services.EntitiesServices.NewsServices
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
         }
-        public async Task<List<News>> GetNewses()
+
+        public async Task<List<NewsDto>> GetNewses()
         {
-            return await _context.Newses.ToListAsync();
+            var news = await (from n in _context.Newses
+                              select new NewsDto
+                              {
+                                  Id = n.Id,
+                                  Title = n.Title,
+                                  ImageName = n.Image,
+                                  Description = n.Description,
+                                  CreatedAt = n.CreatedAt,
+                                  Enabled = n.Enabled
+                              }).ToListAsync();
+            return news;
         }
+
         public async Task<NewsDto> GetNewsById(int Id)
         {
             var news = await (from n in _context.Newses
@@ -31,6 +43,7 @@ namespace Services.EntitiesServices.NewsServices
                                     {
                                         Id = n.Id,
                                         Title = n.Title,
+                                        ImageName=n.Image,
                                         Description = n.Description,
                                         CreatedAt = n.CreatedAt,
                                         Enabled = n.Enabled
@@ -55,31 +68,58 @@ namespace Services.EntitiesServices.NewsServices
         }
 
 
-            public async Task<int> Update(NewsDto news)
+        public async Task<int> Update(NewsDto news)
         {
-            var fileName = Guid.NewGuid() + "_" + Path.GetFileName(news.Image.FileName);
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
-
-            using (var stream = new FileStream(path, FileMode.Create))
+            if (news.Image != null)
             {
-                await news.Image.CopyToAsync(stream);
+                var fileName = Guid.NewGuid() + "_" + Path.GetFileName(news.Image.FileName);
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await news.Image.CopyToAsync(stream);
+                }
+                var n = await _context.Newses.FindAsync(news.Id);
+                if (n == null) return 0;
+                n.Title = news.Title;
+                n.Description = news.Description;
+                n.Image = fileName;
+                n.CreatedAt = news.CreatedAt;
+                n.Enabled = news.Enabled;
+                return await _context.SaveChangesAsync();
             }
-            var n = await _context.Newses.FindAsync(news.Id);
-            if (n == null) return 0;
-            n.Title = news.Title;
-            n.Description = news.Description;
-            n.Image = fileName;
-            n.CreatedAt = news.CreatedAt;
-            n.Enabled = news.Enabled;
-            return await _context.SaveChangesAsync();
+
+
+            else
+            {
+                var n = await _context.Newses.FindAsync(news.Id);
+                if (n == null) return 0;
+                n.Title = news.Title;
+                n.Description = news.Description;
+                n.Image = news.ImageName;
+                n.CreatedAt = news.CreatedAt;
+                n.Enabled = news.Enabled;
+                return await _context.SaveChangesAsync();
+            }
+
 
         }
         public async Task<int> Delete(NewsDto news)
         {
-            var n = await _context.Departments.FindAsync(news.Id);
-            if (n == null) return 0;
-            _context.Departments.Remove(n);
+            //var n = await _context.Departments.FindAsync(news.Id);
+            //if (n == null) return 0;
+            //_context.Newses.Remove(n);
+            //return await _context.SaveChangesAsync();
+
+            var news1 = await _context.Newses.FindAsync(news.Id);
+
+            //delete image from wwwroot/image
+            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", news1.Image);
+            if (System.IO.File.Exists(imagePath))
+                System.IO.File.Delete(imagePath);
+            _context.Newses.Remove(news1);
             return await _context.SaveChangesAsync();
+
         }
 
         public async Task<int> Delete(int Id)
@@ -88,6 +128,11 @@ namespace Services.EntitiesServices.NewsServices
             if (n == null) return 0;
             _context.Newses.Remove(n);
             return await _context.SaveChangesAsync();
+        }
+
+        public Task<NewsDto> Update(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
