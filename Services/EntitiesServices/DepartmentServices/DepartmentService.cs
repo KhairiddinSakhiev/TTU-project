@@ -3,11 +3,6 @@ using Domain.Entities;
 using Domain.EntitiesDto;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.EntitiesServices.DepartmentServices
 {

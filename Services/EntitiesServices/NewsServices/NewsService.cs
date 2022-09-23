@@ -20,51 +20,51 @@ namespace Services.EntitiesServices.NewsServices
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<List<NewsDto>> GetNewses()
+        public async Task<List<News>> GetNewses()
         {
-            var news = await (from n in _context.Newses
-                              select new NewsDto
-                              {
-                                  Id = n.Id,
-                                  Title = n.Title,
-                                  ImageName = n.Image,
-                                  Description = n.Description,
-                                  CreatedAt = n.CreatedAt,
-                                  Enabled = n.Enabled
-                              }).ToListAsync();
+            var news = await _context.Newses.ToListAsync();
             return news;
         }
 
         public async Task<NewsDto> GetNewsById(int Id)
         {
-            var news = await (from n in _context.Newses
-                                    where n.Id == Id
-                                    select new NewsDto
-                                    {
-                                        Id = n.Id,
-                                        Title = n.Title,
-                                        ImageName=n.Image,
-                                        Description = n.Description,
-                                        CreatedAt = n.CreatedAt,
-                                        Enabled = n.Enabled
-                                    }).FirstOrDefaultAsync();
-            if (news == null) return new NewsDto();
+            var news = await (from s in _context.Newses
+                              where s.Id==Id
+                              select new NewsDto
+                              {
+                                  Id = s.Id,
+                                  Title=s.Title,
+                                  ImageName=s.Image,
+                                  Description=s.Description,
+                                  CreatedAt=s.CreatedAt,
+                                  Enabled=s.Enabled
+                              }
+                              ).FirstOrDefaultAsync();
             return news;
         }
 
         public async Task<int> Insert(NewsDto news)
         {
-            var fileName = Guid.NewGuid() + "_" + Path.GetFileName(news.Image.FileName);
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
-            using (var stream = new FileStream(path, FileMode.Create))
+            if (news.Image != null)
             {
-                await news.Image.CopyToAsync(stream);
-            }
+                var fileName = Guid.NewGuid() + "_" + Path.GetFileName(news.Image.FileName);
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await news.Image.CopyToAsync(stream);
+                }
 
-            var mapped = _mapper.Map<News>(news);
-            mapped.Image = news.Image.FileName;
-            await _context.Newses.AddAsync(mapped);
-            return await _context.SaveChangesAsync();
+                var mapped = _mapper.Map<News>(news);
+                mapped.Image = fileName;
+                await _context.Newses.AddAsync(mapped);
+                return await _context.SaveChangesAsync();
+            }
+            else
+            {
+                var mapped = _mapper.Map<News>(news);
+                await _context.Newses.AddAsync(mapped);
+                return await _context.SaveChangesAsync();
+            }
         }
 
 
@@ -96,7 +96,6 @@ namespace Services.EntitiesServices.NewsServices
                 if (n == null) return 0;
                 n.Title = news.Title;
                 n.Description = news.Description;
-                n.Image = news.ImageName;
                 n.CreatedAt = news.CreatedAt;
                 n.Enabled = news.Enabled;
                 return await _context.SaveChangesAsync();
@@ -106,33 +105,14 @@ namespace Services.EntitiesServices.NewsServices
         }
         public async Task<int> Delete(NewsDto news)
         {
-            //var n = await _context.Departments.FindAsync(news.Id);
-            //if (n == null) return 0;
-            //_context.Newses.Remove(n);
-            //return await _context.SaveChangesAsync();
-
-            var news1 = await _context.Newses.FindAsync(news.Id);
-
-            //delete image from wwwroot/image
-            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Images", news1.Image);
-            if (System.IO.File.Exists(imagePath))
-                System.IO.File.Delete(imagePath);
-            _context.Newses.Remove(news1);
-            return await _context.SaveChangesAsync();
-
-        }
-
-        public async Task<int> Delete(int Id)
-        {
-            var n = await _context.Newses.FindAsync(Id);
+            var n = await _context.Newses.FindAsync(news.Id);
             if (n == null) return 0;
             _context.Newses.Remove(n);
             return await _context.SaveChangesAsync();
+
+
+
         }
 
-        public Task<NewsDto> Update(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

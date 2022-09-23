@@ -1,9 +1,9 @@
 ﻿@using Domain.Entities
-@model List<Department>
+@model List<Position>
 
 <div class="row">
     <div class="col-md-12">
-        <a asp-action="Create" asp-controller="Department" class="btn btn-success">Илова намудан</a>
+        <a asp-action="Create" asp-controller="Position" class="btn btn-success">Добавить</a>
     </div>
 </div>
 <div class="row">
@@ -11,9 +11,10 @@
         <table class="table">
             <thead>
             <tr>     
-                    <td>Ном</td>
-                    <td>Тавсиф</td> 
-                    <td>Шуба фаъол аст ?</td>
+                    <td>Номи вазифа</td>
+                    <td>Фаъол</td>
+                    <td>Намуди мавкеъ</td>
+                    <td>Номи шубаъ</td>
                            
             </tr>
             </thead>
@@ -22,19 +23,20 @@
             {
                 <tr>
                     
-                    <td>@item.Title</td>
-                    <td>@item.Description</td> 
+                    <td>@item.Name</td>
                     <td>@item.Enabled</td>
-                   
+                    <td>@item.PositionType</td>
+                    <td>@item.Department?.Title</td>
+                    
                      
                    
                    
 
                     <td>
-                        <a asp-action="Edit" asp-controller="Department" asp-route-id="@item.Id">
+                        <a asp-action="Edit" asp-controller="Position" asp-route-id="@item.Id">
                             Иваз намудан
                         </a>
-                        <a asp-action="Delete" asp-controller="Department" asp-route-id="@item.Id">
+                        <a asp-action="Delete" asp-controller="Position" asp-route-id="@item.Id">
                             Нест намудан
                         </a>
                     </td>

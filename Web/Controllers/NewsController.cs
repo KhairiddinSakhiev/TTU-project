@@ -1,4 +1,5 @@
-﻿using Domain.EntitiesDto;
+﻿using Domain.Entities;
+using Domain.EntitiesDto;
 using Microsoft.AspNetCore.Mvc;
 using Services.EntitiesServices.NewsServices;
 
@@ -77,7 +78,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult?> Delete(NewsDto stu)
+        public async Task<IActionResult?> Delete(NewsDto stu)
         {
             try
             {

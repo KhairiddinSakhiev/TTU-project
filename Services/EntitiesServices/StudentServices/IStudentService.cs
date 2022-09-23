@@ -15,6 +15,5 @@ namespace Services.EntitiesServices.StudentServices
         Task<int> Insert(StudentDto student);
         Task<int> Update(StudentDto student);
         Task<int> Delete(StudentDto student);
-        Task<int> Delete(int Id);
     }
 }

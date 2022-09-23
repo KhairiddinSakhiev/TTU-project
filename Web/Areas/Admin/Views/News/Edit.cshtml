@@ -3,45 +3,50 @@
 
 
 
-<h3>Изменить</h3>
+<h3>Шумо ин малумотро иваз кардан мехохед ?</h3>
 <form asp-action="Edit" asp-controller="News" asp-antiforgery="true" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
 
-        <div class="form-group">
-            <label asp-for="Title"><b>Title</b></label>
+         <div class="form-group">
+            <label asp-for="Title"><b>Сарлавха</b></label>
             <input type="text" asp-for="Title" class="form-control" />
             <span asp-validation-for="Title"></span>
         </div>
-        <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
+       
+          <div class="form-group">
+                <label asp-for="Image" class="control-label"><b>Сурат</b></label>
                 <input type="file" asp-for="Image" accept="image/*" class="form-control-file"/>
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
+
+
          <div class="form-group">
-            <label asp-for="Description"><b>Description</b></label>
+            <label asp-for="Description"><b>Тавсиф</b></label>
             <input type="text" asp-for="Description" class="form-control" />
             <span asp-validation-for="Description"></span>
         </div>
-     
          
         <input asp-for="ImageName"? type="hidden"  class="form-control" accept="application" />
          
        
         <div class="form-group">
-            <label asp-for="CreatedAt"><b>CreatedAt</b></label>
+            <label asp-for="CreatedAt"><b>Рузи бромад</b></label>
             <input type="text" asp-for="CreatedAt" class="form-control" />
             <span asp-validation-for="CreatedAt"></span>
         </div>   
          <div class="form-group">
-            <label asp-for="Enabled"><b>Enabled</b></label>
+            <label asp-for="Enabled"><b>Фаъол</b></label>
             <input type="text" asp-for="Enabled" class="form-control" />
             <span asp-validation-for="Enabled"></span>
         </div>   
        
        
-        <div class="form-group" >
-            <input  type="submit" value="Изменить" class="form-control btn" />
-        </div>
+        <div class="card-footer">
+                <center>
+                    <button type="submit" class="btn btn-primary">Иваз намудан</button>
+                    <a asp-action="Index" asp-controller="News" class="btn btn-secondary">Бекор намудан</a>
+                </center>
+            </div>
     </div>
 </form>

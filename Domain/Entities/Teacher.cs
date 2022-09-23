@@ -22,7 +22,7 @@ public class Teacher
     [Required]
     public string? Image { get; set; }
     [Required]
-    public DateTime BirthDate { get; set; }
+    public DateTimeOffset BirthDate { get; set; }
     public Gender Gender { get; set; }
     public Status Status { get; set; }
     public Degree Degree { get; set; }

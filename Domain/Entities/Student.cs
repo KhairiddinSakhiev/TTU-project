@@ -12,10 +12,10 @@ namespace Domain.Entities
         public int Id { get; set; }
         [Required]
         [MaxLength(30)]
-        public string? FirstName { get; set; }
+        public string FirstName { get; set; }
         [Required]
         [MaxLength(30)]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
         [Required]
         public string? Image { get; set; }
         public string? Description { get; set; }
