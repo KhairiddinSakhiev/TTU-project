@@ -1,0 +1,63 @@
+﻿@using Domain.Entities
+@model List<Teacher>
+
+<div class="row">
+    <div class="col-md-12">
+        <a asp-action="Create" asp-controller="Teacher" class="btn btn-success">Илова намудан</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+            <tr>     
+                    <td>Ном</td>
+                    <td>Насаб</td>
+                    <td>Номи падар</td>
+                    <td>Тавсиф</td>
+                    <td>Сурога</td>
+                    <td>Раками телефон</td>
+                    <td>Почтаи электрони</td>
+                    <td>Сурат</td>
+                    <td>Рузи таваллуд</td>
+                    <td>Чинс</td>
+                    <td>Холат</td>
+                    <td>Дарача</td>
+                           
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.MiddleName</td>
+                    <td>@item.Description</td>
+                    <td>@item.Address</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.Email</td>
+                    <td><img width="100" height="100" src="~/Images/@item.Image" alt="Photo" accept="application" /></td>
+                    <td>@item.BirthDate</td>
+                    <td>@item.Gender</td>
+                    <td>@item.Status</td>
+                    <td>@item.Degree</td>
+                     
+                   
+                   
+
+                    <td>
+                        <a asp-action="Edit" asp-controller="Teacher" asp-route-id="@item.Id">
+                            Иваз кардан
+                        </a>
+                        <a asp-action="Delete" asp-controller="Teacher" asp-route-id="@item.Id">
+                            Нест намудан
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,10 +1,10 @@
 ﻿@using Domain.EntitiesDto
-@model SliderDto
+@model NewsDto
 
 
 
 <h3>Илова намудан</h3>
-<form asp-action="Create" asp-controller="Slider" asp-antiforgery="true" enctype="multipart/form-data">
+<form asp-action="Create" asp-controller="News" asp-antiforgery="true" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
 
@@ -13,27 +13,42 @@
             <input type="text" asp-for="Title" class="form-control" />
             <span asp-validation-for="Title"></span>
         </div>
-     
+       
           <div class="form-group">
                 <label asp-for="Image" class="control-label"><b>Сурат</b></label>
                 <input type="file" asp-for="Image" accept="image/*" class="form-control-file"/>
                 <span asp-validation-for="Image" class="text-danger"></span>
-          </div>
+            </div>
+
+
+         <div class="form-group">
+            <label asp-for="Description"><b>Тавсиф</b></label>
+            <input type="text" asp-for="Description" class="form-control" />
+            <span asp-validation-for="Description"></span>
+        </div>
+     
+         
         <input asp-for="ImageName"? type="hidden"  class="form-control" accept="application" />
          
+          
+        <div class="form-group">
+            <label asp-for="CreatedAt"><b>Рузи бромад</b></label>
+            <input type="text" asp-for="CreatedAt" class="form-control" />
+            <span asp-validation-for="CreatedAt"></span>
+        </div>   
+
          <div class="form-group">
             <label asp-for="Enabled"><b>Фаъол</b></label>
             <input type="text" asp-for="Enabled" class="form-control" />
             <span asp-validation-for="Enabled"></span>
-        </div>     
-
+        </div>   
        
-       <div class="card-footer">
+       
+     <div class="card-footer">
                 <center>
                     <button type="submit" class="btn btn-primary">Илова намудан</button>
-                    <a asp-action="Index" asp-controller="Slider" class="btn btn-secondary">Бекор намудан</a>
+                    <a asp-action="Index" asp-controller="News" class="btn btn-secondary">Бекор намудан</a>
                 </center>
-            </div>
-    </div>
+      </div>
     </div>
 </form>

@@ -1,0 +1,56 @@
+﻿@using Domain.Entities
+@model List<Student>
+
+<div class="row">
+    <div class="col-md-12">
+        <a asp-action="Create" asp-controller="Student" class="btn btn-success">Илова намудан</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+            <tr>     
+                   <td>Ном</td>
+                    <td>Насаб</td>
+                     <td>Сурат</td>
+                     <td>Тавсиф</td>
+                     <td>Унвон</td> 
+                      <td>Сурога</td> 
+                     <td>Фаъол</td>
+                      <td>Раками телефон</td> 
+                       <td>Сину сол</td> 
+                           
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                     <td>@item.FirstName</td>
+                     <td>@item.LastName</td>
+                     <td><img width="100" height="100" src="~/Images/@item.Image" alt="Photo" accept="application" /></td>
+                     <td>@item.Description</td>
+                     <td>@item.Title</td> 
+                     <td>@item.Address</td> 
+                     <td>@item.Enabled</td>
+                     <td>@item.PhoneNumber</td> 
+                     <td>@item.Age</td> 
+                     
+                   
+                   
+
+                    <td>
+                        <a asp-action="Edit" asp-controller="Student" asp-route-id="@item.Id">
+                            Иваз намудан
+                        </a>
+                        <a asp-action="Delete" asp-controller="Student" asp-route-id="@item.Id">
+                            Нест намудан
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

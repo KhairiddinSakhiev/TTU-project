@@ -4,7 +4,7 @@ using Services.EntitiesServices.StudentServices;
 
 namespace Web.Controllers
 {
-    public class StudentController : Controller
+    public class StudentController :Controller
     {
         private readonly IStudentService _studentService;
         private readonly ILogger<StudentController> _logger;
@@ -13,18 +13,18 @@ namespace Web.Controllers
             _studentService = studentService;
             _logger = logger;
         }
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var list = await _studentService.GetStudents();
             return View(list);
         }
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View(new StudentDto());
         }
 
         [HttpPost]
-        public async Task<ActionResult?> Create(StudentDto student)
+        public async Task<IActionResult> Create(StudentDto student)
         {
             try
             {
@@ -44,18 +44,23 @@ namespace Web.Controllers
             }
         }
 
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var student = await _studentService.GetStudentById(id);
             return View(student);
         }
 
         [HttpPost]
-        public async Task<ActionResult?> Edit(StudentDto stu)
+        public async Task<IActionResult> Edit(StudentDto stu)
         {
             try
             {
                 if (ModelState.IsValid)
+                {
+                    await _studentService.Update(stu);
+                    return RedirectToAction(nameof(Index));
+                }
+                else if(stu.Image==null && stu.ImageName == null)
                 {
                     await _studentService.Update(stu);
                     return RedirectToAction(nameof(Index));
@@ -77,16 +82,17 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult?> Delete(StudentDto stu)
+        public async Task<IActionResult> Delete(StudentDto stu)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (stu!=null)
                 {
                     await _studentService.Delete(stu);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(stu);
+                
+                    return View(stu);
             }
             catch (Exception ex)
             {
