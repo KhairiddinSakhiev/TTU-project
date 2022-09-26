@@ -32,7 +32,7 @@ namespace Web.Areas.Admin.Controllers
             {
                 return Redirect(model.ReturnUrl);
             }
-            return RedirectToAction("Register");
+            return RedirectToAction("Register", "Account",new { Area = "Admin" });
         }
 
         [HttpGet]
@@ -46,7 +46,7 @@ namespace Web.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid) return View(model);
             await _accountService.Register(model);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home",new { Area = "Admin" });
 
 
         }
@@ -55,7 +55,7 @@ namespace Web.Areas.Admin.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home", new { Area = "Admin" });
         }
 
 
