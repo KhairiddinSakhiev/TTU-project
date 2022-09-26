@@ -1,6 +1,7 @@
 ﻿using Domain.EntitiesDto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services.EntitiesServices.DepartmentServices;
 using Services.EntitiesServices.PositionServices;
 
 namespace Web.Controllers
@@ -9,11 +10,17 @@ namespace Web.Controllers
     {
         private readonly IPositionService _positionService;
         private readonly ILogger<PositionController> _logger;
+        private readonly IDepartmentService _departmentService;
 
-        public PositionController(IPositionService positionService,ILogger<PositionController> logger)
+        public PositionController(
+            IPositionService positionService,
+            ILogger<PositionController> logger,
+            IDepartmentService departmentService
+            )
         {
             _positionService = positionService;
             _logger = logger;
+            _departmentService = departmentService;
         }
         // GET: PositionController
         public async Task<IActionResult> Index()
@@ -23,8 +30,9 @@ namespace Web.Controllers
         }       
 
         // GET: PositionController/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+           ViewBag.Departments=await _departmentService.GetDepartments();
             return View(new PositionDto());
         }
 
@@ -33,6 +41,7 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PositionDto dto)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             try
             {
                 if (ModelState.IsValid)
@@ -54,6 +63,7 @@ namespace Web.Controllers
         // GET: PositionController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             var position = await _positionService.GetPositionById(id);
             return View(position);
         }
@@ -63,6 +73,7 @@ namespace Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(PositionDto dto)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             try
             {
                 if (ModelState.IsValid)

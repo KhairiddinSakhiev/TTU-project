@@ -21,6 +21,7 @@ namespace Web.HalperExtensionMethods
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<AccountService>();
 
 
 
