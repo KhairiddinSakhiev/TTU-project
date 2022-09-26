@@ -41,7 +41,7 @@ namespace Services.AccountServices
         }
 
         public async Task<bool> Register(Register register)
-        {
+        {   
             var user = new IdentityUser
             {
                 Email = register.Email,

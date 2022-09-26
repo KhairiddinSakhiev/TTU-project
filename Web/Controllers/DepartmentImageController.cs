@@ -6,14 +6,15 @@ using Services.EntitiesServices.DepartmentServices;
 
 namespace Web.Controllers
 {
-    public class DepartmentImageController :Controller
+    
+    public class DepartmentImageController : Controller
     {
         private readonly IDepartmentImageService _imageService;
         private readonly ILogger<DepartmentImageController> _logger;
         private readonly IDepartmentService _departmentService;
 
         public DepartmentImageController(IDepartmentImageService imageService,
-            ILogger<DepartmentImageController> logger,IDepartmentService departmentService)
+            ILogger<DepartmentImageController> logger, IDepartmentService departmentService)
         {
             _imageService = imageService;
             _logger = logger;
@@ -22,14 +23,15 @@ namespace Web.Controllers
         // GET: DepartmentImageController
         public async Task<ActionResult> Index()
         {
-            var list =await _imageService.GetDepartmentImages();
+            var list = await _imageService.GetDepartmentImages();
             return View(list);
         }
 
 
         // GET: DepartmentImageController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             return View(new DepartmentImageDto());
         }
 
@@ -59,6 +61,7 @@ namespace Web.Controllers
         // GET: DepartmentImageController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             var d = await _imageService.GetDepartmentImageById(id);
             return View(d);
         }
@@ -88,7 +91,8 @@ namespace Web.Controllers
 
         // GET: DepartmentImageController/Delete/5
         public async Task<ActionResult> Delete(int id)
-        { 
+        {
+            ViewBag.Departments = await _departmentService.GetDepartments();
             var d = await _imageService.GetDepartmentImageById(id);
             return View(d);
         }

@@ -35,19 +35,30 @@ public class PositionService : IPositionService
         if (finded == null) return 0;
         finded.Name = positionDto.Name;
         finded.Enabled = positionDto.Enabled;
+        finded.PositionType = positionDto.PositionType;
+        finded.DepartmentId=positionDto.DepartmentId;
         return await _context.SaveChangesAsync();
     }
 
     public async Task<PositionDto> GetPositionById(int id)
     {
-        var finded = await _context.Positions.FindAsync(id);
-        var map = _mapper.Map<PositionDto>(finded);
-        return map;
+        var finded = await (from p in _context.Positions
+                            where p.Id == id
+                            select new PositionDto
+                            {
+                               Id=p.Id,
+                               Name=p.Name,
+                               Enabled=p.Enabled,
+                               PositionType=p.PositionType,
+                               DepartmentId=p.DepartmentId
+                            }).FirstOrDefaultAsync();
+        if (finded == null) return new PositionDto();
+        return finded;
     }
 
-    public async Task<int> DeletePosition(int id)
+    public async Task<int> DeletePosition(PositionDto dto)
     {
-        var finded = await _context.Positions.FindAsync(id);
+        var finded = await _context.Positions.FindAsync(dto.Id);
         if (finded == null) return 0;
         _context.Positions.Remove(finded);
         return await _context.SaveChangesAsync();

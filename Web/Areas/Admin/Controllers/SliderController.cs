@@ -31,9 +31,10 @@ namespace Web.Areas.Admin.Controllers
             return View(new SliderDto());
         }
         [HttpGet]
-        public async Task<List<Slider>> GetSliders()
+        public async Task<IActionResult> GetSliders()
         {
-            return await _sliderService.GetSliders();
+            var sliders= await _sliderService.GetSliders();
+            return View(sliders);
         }
 
         // POST: SliderController/Create
@@ -52,7 +53,7 @@ namespace Web.Areas.Admin.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
                 return View(slider);
             }
@@ -71,7 +72,7 @@ namespace Web.Areas.Admin.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (dto.Title!=null || dto.Image==null && dto.ImageName==null)
                 {
                     await _sliderService.Update(dto);
                     return RedirectToAction(nameof(Index));
@@ -101,7 +102,7 @@ namespace Web.Areas.Admin.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (dto.Title != null || dto.Image == null && dto.ImageName == null)
                 {
                     await _sliderService.Delete(dto);
                     return RedirectToAction(nameof(Index));

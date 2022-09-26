@@ -1,4 +1,5 @@
-﻿using Domain.EntitiesDto;
+﻿using Domain.Entities;
+using Domain.EntitiesDto;
 using Microsoft.AspNetCore.Mvc;
 using Services.EntitiesServices.NewsServices;
 
@@ -14,12 +15,12 @@ namespace Web.Areas.Admin.Controllers
             _logger = logger;
         }
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var list = await _newsService.GetNewses();
             return View(list);
         }
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View(new NewsDto());
         }
@@ -29,7 +30,7 @@ namespace Web.Areas.Admin.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (news.Title!=null)
                 {
                     await _newsService.Insert(news);
                     return RedirectToAction(nameof(Index));
@@ -45,18 +46,18 @@ namespace Web.Areas.Admin.Controllers
             }
         }
 
-        public async Task<ActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var news = await _newsService.GetNewsById(id);
             return View(news);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(NewsDto dto)
+        public async Task<IActionResult> Edit(NewsDto dto)
         {
             try
             {
-                if (dto.Title != null)
+                if (dto.Title != null || dto.Image == null && dto.ImageName == null)
                 {
                     await _newsService.Update(dto);
                     return RedirectToAction(nameof(Index));
@@ -71,18 +72,18 @@ namespace Web.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        public async Task<ActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var news = await _newsService.GetNewsById(id);
             return View(news);
         }
 
         [HttpPost]
-        public async Task<ActionResult?> Delete(NewsDto dto)
+        public async Task<IActionResult> Delete(NewsDto dto)
         {
             try
             {
-                if (dto.Title!=null)
+                if (dto.Title != null || dto.Image == null && dto.ImageName == null)
                 {
                     await _newsService.Delete(dto);
                     return RedirectToAction(nameof(Index));

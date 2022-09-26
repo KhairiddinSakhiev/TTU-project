@@ -48,39 +48,64 @@ namespace Services.EntitiesServices.StudentServices
 
         public async Task<int> Insert(StudentDto student)
         {
-            var fileName = Guid.NewGuid() + "_" + Path.GetFileName(student.Image.FileName);
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
-            using (var stream = new FileStream(path, FileMode.Create))
+            if (student.Image != null)
             {
-                await student.Image.CopyToAsync(stream);
+                var fileName = Guid.NewGuid() + "_" + Path.GetFileName(student.Image.FileName);
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await student.Image.CopyToAsync(stream);
+                }
+                var mapped = _mapper.Map<Student>(student);
+                mapped.Image = fileName;
+                await _cont.Students.AddAsync(mapped);
+                return await _cont.SaveChangesAsync();
             }
-            var mapped = _mapper.Map<Student>(student);
-            mapped.Image = fileName;
-            await _cont.Students.AddAsync(mapped);
-            return await _cont.SaveChangesAsync();
+            else
+            {
+                var mapped = _mapper.Map<Student>(student);
+                await _cont.Students.AddAsync(mapped);
+                return await _cont.SaveChangesAsync();
+            }
         }
         public async Task<int> Update(StudentDto student)
         {
-            var fileName = Guid.NewGuid() + "_" + Path.GetFileName(student.Image.FileName);
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
-
-            using (var stream = new FileStream(path, FileMode.Create))
+            if (student.Image != null)
             {
-                await student.Image.CopyToAsync(stream);
-            }
-            var s = await _cont.Students.FindAsync(student.Id);
-            if (s == null) return 0;
-            s.FirstName = student.FirstName;
-            s.LastName = student.LastName;
-            s.Image = fileName;
-            s.Description = student.Description;
-            s.Title = student.Title;
-            s.Address = student.Address;
-            s.Enabled = student.Enabled;
-            s.PhoneNumber = student.PhoneNumber;
-            s.Age = student.Age;
-            return await _cont.SaveChangesAsync();
+                var fileName = Guid.NewGuid() + "_" + Path.GetFileName(student.Image.FileName);
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, "Images", fileName);
 
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await student.Image.CopyToAsync(stream);
+                }
+                var s = await _cont.Students.FindAsync(student.Id);
+                if (s == null) return 0;
+                s.FirstName = student.FirstName;
+                s.LastName = student.LastName;
+                s.Image = fileName;
+                s.Description = student.Description;
+                s.Title = student.Title;
+                s.Address = student.Address;
+                s.Enabled = student.Enabled;
+                s.PhoneNumber = student.PhoneNumber;
+                s.Age = student.Age;
+                return await _cont.SaveChangesAsync();
+            }
+            else
+            {
+                var s = await _cont.Students.FindAsync(student.Id);
+                if (s == null) return 0;
+                s.FirstName = student.FirstName;
+                s.LastName = student.LastName;
+                s.Description = student.Description;
+                s.Title = student.Title;
+                s.Address = student.Address;
+                s.Enabled = student.Enabled;
+                s.PhoneNumber = student.PhoneNumber;
+                s.Age = student.Age;
+                return await _cont.SaveChangesAsync();
+            }
         }
 
         public async Task<int> Delete(StudentDto student)
@@ -91,12 +116,6 @@ namespace Services.EntitiesServices.StudentServices
             return await _cont.SaveChangesAsync();
         }
 
-        public async Task<int> Delete(int Id)
-        {
-            var s = await _cont.Students.FindAsync(Id);
-            if (s == null) return 0;
-            _cont.Students.Remove(s);
-            return await _cont.SaveChangesAsync();
-        }
+       
     }
 }

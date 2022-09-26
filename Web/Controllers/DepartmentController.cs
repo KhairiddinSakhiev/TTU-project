@@ -1,9 +1,11 @@
 ﻿using Domain.EntitiesDto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.EntitiesServices.DepartmentServices;
 
 namespace Web.Controllers
 {
+   
     public class DepartmentController :Controller
     {
         private readonly IDepartmentService _departmentService;
@@ -40,7 +42,7 @@ namespace Web.Controllers
                 }
                 return View(department);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 _logger.LogError(ex.ToString());

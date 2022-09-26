@@ -77,7 +77,7 @@ namespace Persistence.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
@@ -212,7 +212,7 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateTimeOffset>("BirthDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Degree")
@@ -411,13 +411,13 @@ namespace Persistence.Migrations
                         {
                             Id = "z44ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bfaaacf7-9b1a-4658-be83-22c3b41df34e",
+                            ConcurrencyStamp = "05738ecd-f8ef-469a-ae27-e2fe5c8dd9c3",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5cb1640f-2e1c-4142-b2df-0aab34170ee2",
+                            SecurityStamp = "59ce9852-821d-43ba-adff-ac6c51f7cbaf",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });

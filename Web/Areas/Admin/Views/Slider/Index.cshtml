@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <a asp-action="Create" asp-controller="Slider" class="btn btn-success">Добавить</a>
+        <a asp-action="Create" asp-controller="Slider" class="btn btn-success">Илова намудан</a>
     </div>
 </div>
 <div class="row">
@@ -11,9 +11,9 @@
         <table class="table">
             <thead>
             <tr>     
-                    <td>Title</td>
-                    <td>image</td> 
-                    <td>Enabled</td>
+                    <td>Сарлавха</td>
+                    <td>Сурат</td> 
+                    <td>Фаъол</td>
                            
             </tr>
             </thead>
@@ -26,10 +26,10 @@
                     <td>@item.Enabled</td>                                                           
                     <td>
                         <a asp-action="Edit" asp-controller="Slider" asp-route-id="@item.Id">
-                            Изменить
+                            Иваз намудан
                         </a> y
                         <a asp-action="Delete" asp-controller="Slider" asp-route-id="@item.Id">
-                            Удалить
+                            Нест намудан
                         </a>
                     </td>
                 </tr>

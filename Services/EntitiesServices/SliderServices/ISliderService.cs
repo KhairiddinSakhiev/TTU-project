@@ -15,6 +15,5 @@ namespace Services.EntitiesServices.SliderServices
         Task<int> Insert(SliderDto slider);
         Task<int> Update(SliderDto slider);
         Task<int> Delete(SliderDto slider);
-        Task<int> Delete(int Id);
     }
 }

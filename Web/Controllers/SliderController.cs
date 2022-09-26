@@ -1,37 +1,45 @@
-﻿using Domain.EntitiesDto;
+﻿using Domain.Entities;
+using Domain.EntitiesDto;
 using Microsoft.AspNetCore.Mvc;
 using Services.EntitiesServices.SliderServices;
 
 namespace Web.Controllers
 {
+    
     public class SliderController :Controller
     {
         private readonly ISliderService _sliderService;
         private readonly ILogger<SliderController> _logger;
 
-        public SliderController(ISliderService sliderService,ILogger<SliderController> logger)
+        public SliderController(ISliderService sliderService, ILogger<SliderController> logger)
         {
             _sliderService = sliderService;
             _logger = logger;
         }
         // GET: SliderController
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var list = await _sliderService.GetSliders();
             return View(list);
         }
 
-       
+
 
         // GET: SliderController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View(new SliderDto());
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetSliders()
+        {
+            var sliders= await _sliderService.GetSliders();
+            return View(sliders);
         }
 
         // POST: SliderController/Create
         [HttpPost]
-        public async Task<ActionResult?> Create(SliderDto slider)
+        public async Task<IActionResult> Create(SliderDto slider)
         {
             try
             {
@@ -45,25 +53,26 @@ namespace Web.Controllers
             catch (Exception ex)
             {
 
-                _logger.LogError(ex.ToString());
+                _logger.LogError(ex.Message);
                 ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
                 return View(slider);
             }
         }
 
         // GET: SliderController/Edit/5
-        public async Task<ActionResult> Edit(int id)
-        { var slider = await _sliderService.GetSliderById(id);
+        public async Task<IActionResult> Edit(int id)
+        {
+            var slider = await _sliderService.GetSliderById(id);
             return View(slider);
         }
 
         // POST: SliderController/Edit/5
         [HttpPost]
-        public async Task<ActionResult?> Edit(SliderDto dto)
+        public async Task<IActionResult> Edit(SliderDto dto)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (dto.Title!=null || dto.Image==null && dto.ImageName==null)
                 {
                     await _sliderService.Update(dto);
                     return RedirectToAction(nameof(Index));
@@ -77,10 +86,11 @@ namespace Web.Controllers
                 ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
                 return View(dto);
             }
+
         }
 
         // GET: SliderController/Delete/5
-        public async Task<ActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var slider = await _sliderService.GetSliderById(id);
             return View(slider);
@@ -88,11 +98,11 @@ namespace Web.Controllers
 
         // POST: SliderController/Delete/5
         [HttpPost]
-        public async Task<ActionResult?> Delete(SliderDto dto)
+        public async Task<IActionResult> Delete(SliderDto dto)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (dto.Title != null || dto.Image == null && dto.ImageName == null)
                 {
                     await _sliderService.Delete(dto);
                     return RedirectToAction(nameof(Index));
@@ -101,10 +111,12 @@ namespace Web.Controllers
             }
             catch (Exception ex)
             {
+
                 _logger.LogError(ex.ToString());
                 ModelState.AddModelError(string.Empty, "Some generic error occurred. Try again.");
                 return View(dto);
             }
+
         }
     }
 }
